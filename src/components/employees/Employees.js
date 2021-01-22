@@ -1,13 +1,34 @@
-import logo from '../../logo.svg';
+import { useState, useEffect } from 'react';
 import './Employees.css';
 
+import $api from 'axios';
+
 function Employees () {
+
+  const [employees, setEmployees] = useState ([]);
+
+  useEffect (() => {
+
+    $api.get ('https://randomuser.me/api/?results=10')
+      .then (res => {
+        console.log (res.data.results);
+
+        const raw = [...res.data.results];
+
+        const list = raw.map (employee => (
+          <li>{ employee.name.first }</li>
+        ))
+
+        setEmployees (list);
+        
+      })
+    
+  }, []);
+  
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Employees</h1>
-      </header>
+    <div className="employees">
+      { employees }
     </div>
   );
 }
