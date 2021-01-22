@@ -1,3 +1,33 @@
-.employees {
-  color: #00cc99;
+.card {
+  margin: 20px;
+  margin-top: -70px;
+  transition: all .3s;
+}
+
+.card:first-child {
+  margin-top: 100px;
+}
+
+.card:hover {
+  cursor: default;
+  transform: translate(100px, -50px) rotate(5deg);
+  z-index: 99;
+}
+
+.card:hover + .card {
+  transform: translate(-10px, 10px) rotate(-1deg);
+}
+
+.card-header {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.card-text:first-child {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.card-text:last-child {
+  text-align: left;
 }
