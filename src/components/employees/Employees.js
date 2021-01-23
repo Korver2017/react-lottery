@@ -6,9 +6,16 @@ import rq from 'random-quotes';
 
 import { Card } from 'react-bootstrap';
 
+import Lightbox from '../lightbox/Lightbox';
+
 function Employees (props) {
 
   const [employees, setEmployees] = useState ([]);
+
+  const [show, setShow] = useState (false);
+
+  const handleShow = () => setShow (true);
+  const handleCloseLightbox = () => setShow (false);
 
   useEffect (() => {
 
@@ -59,14 +66,16 @@ function Employees (props) {
                 </Card.Body>
 
                 <div className="editor position-absolute">
-                  <i class="fas fa-edit edit"></i>
-                  <i class="fas fa-trash trash"></i>
+                  <i onClick={ handleShow } className="fas fa-edit edit"></i>
+                  <i className="fas fa-trash trash"></i>
                 </div>
               </Card>
             ))
           }
         </div>
       </div>
+
+      <Lightbox handleClose={ (isClose) => handleCloseLightbox (isClose) } isShow={ show }></Lightbox>
     </div>
   );
 }
