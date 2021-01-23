@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <EmployeeAdd handleAddEmployee={ (employee) => handleAddEmployee (employee) } />
-      <Employees addedEmployee={addedEmployee} />
+      <Employees addedEmployee={ addedEmployee } />
     </div>
   );
 }

@@ -10,17 +10,17 @@ function EmployeeAdd (props) {
     console.log ('handleAddClick');
 
     let input = document.querySelector ('.form-control');
-    let addedEmployee = { name: { first: '', last: '' } };
+    let addedEmployee = { name: { first: '', last: '' }, id: { value: '' } };
     
     addedEmployee.name.first = input.value;
     addedEmployee.name.last = input.value;
+    addedEmployee.quote = input.value;
+    addedEmployee.id.value = input.value;
 
     console.log (addedEmployee);
 
     input.value = '';
-    // let addedEmployee = refs.input.value;
-
-    // refs.input.value = '';
+    
     props.handleAddEmployee (addedEmployee);
   };
   

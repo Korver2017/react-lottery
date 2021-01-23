@@ -1,27 +1,12 @@
 .card {
-  position: absolute !important;
-  transition: all .3s;
-}
-
-.card.expanded {
-  position: relative !important;
-  margin: 20px;
-  margin-top: -70px;
-  transition: all .3s;
-}
-
-.card:first-child {
-  margin-top: 100px;
+  width: 24%;
+  margin: 0 .5%;
 }
 
 .card:hover {
   cursor: default;
   transform: translate(100px, -50px) rotate(5deg);
   z-index: 99;
-}
-
-.card:hover + .card {
-  transform: translate(-10px, 10px) rotate(-1deg);
 }
 
 .card-header {
