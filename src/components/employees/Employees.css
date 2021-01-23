@@ -1,4 +1,10 @@
 .card {
+  position: absolute !important;
+  transition: all .3s;
+}
+
+.card.expanded {
+  position: relative !important;
   margin: 20px;
   margin-top: -70px;
   transition: all .3s;
