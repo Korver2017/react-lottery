@@ -46,17 +46,22 @@ function Employees (props) {
               bg="light"
               key={employee.id.value + i}
               text="dark"
-              className='mb-2'
+              className='mb-2 position-relative'
               >
-                <Card.Header>{ employee.name.first } { employee.name.last }</Card.Header>
+                <Card.Header className="font-weight-bold">{ employee.name.first } { employee.name.last }</Card.Header>
                 <Card.Body>
-                  <Card.Text>
+                  <Card.Text className="font-weight-bold">
                     My Declaration to Win The Prize:
                   </Card.Text>
-                  <Card.Text>
+                  <Card.Text className="text-left">
                     { employee.quote }
                   </Card.Text>
                 </Card.Body>
+
+                <div className="editor position-absolute">
+                  <i class="fas fa-edit edit"></i>
+                  <i class="fas fa-trash trash"></i>
+                </div>
               </Card>
             ))
           }

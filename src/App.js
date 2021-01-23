@@ -4,7 +4,7 @@ import EmployeeAdd from './components/employeeAdd/EmployeeAdd';
 
 import { useState } from 'react';
 
-function App() {
+function App () {
 
   const [addedEmployee, setAddedEmployee] = useState (null);
 

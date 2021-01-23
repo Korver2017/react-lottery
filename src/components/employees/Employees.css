@@ -3,22 +3,34 @@
   margin: 0 .5%;
 }
 
-.card:hover {
-  cursor: default;
-  transform: translate(100px, -50px) rotate(5deg);
-  z-index: 99;
-}
-
 .card-header {
-  font-weight: bold;
   font-size: 20px;
 }
 
 .card-text:first-child {
-  font-weight: bold;
   font-size: 14px;
 }
 
-.card-text:last-child {
-  text-align: left;
+.editor {
+  bottom: 5px;
+  right: 5px;
+  display: none;
+}
+
+.card:hover .editor {
+  display: block;
+}
+
+.edit, .trash {
+  border: 1px solid rgb(216, 216, 216);
+  color: rgb(216, 216, 216);
+  padding: 8px;
+  margin: 3px;
+  border-radius: 5px;
+}
+
+.edit:hover, .trash:hover {
+  border-color: gray;
+  color: gray;
+  cursor: pointer;
 }
