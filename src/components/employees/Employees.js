@@ -15,22 +15,25 @@ function Employees (props) {
   const [editTarget, setEditTarget] = useState ({});
 
   // const handleShow = (employee) => {
-  const handleShow = (employee) => {
-    setEditTarget (employee);
+  const handleShow = (employee, i) => {
+    setEditTarget ({...employee, order: i});
     setShow (true);
   };
   
   const handleCloseLightbox = () => setShow (false);
 
   const handleEditEmployee = (target) => {
-
+    console.log (editTarget.order);
     console.log (target);
 
-    console.log ('K');
+    const pos = editTarget.order;
 
-    target.name.first = 'K';
-    target.name.last = 'KK';
-    target.quote = 'KKK';
+    employees[pos].name = target.name;
+    employees[pos].quote = target.quote;
+
+    console.log (employees);
+
+    // setEmployees ([...employees, employees[pos] = target])
   };
 
   useEffect (() => {
@@ -82,7 +85,7 @@ function Employees (props) {
                 </Card.Body>
 
                 <div className="editor position-absolute">
-                  <i onClick={ () => handleShow (employee) } className="fas fa-edit edit"></i>
+                  <i onClick={ () => handleShow (employee, i) } className="fas fa-edit edit"></i>
                   {/* <i onClick={ handleShow (i) } className="fas fa-edit edit"></i> */}
                   <i className="fas fa-trash trash"></i>
                 </div>
