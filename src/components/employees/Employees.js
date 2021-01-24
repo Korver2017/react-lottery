@@ -11,29 +11,46 @@ import Lightbox from '../lightbox/Lightbox';
 function Employees (props) {
 
   const [employees, setEmployees] = useState ([]);
-  const [show, setShow] = useState (false);
+  // const [show, setShow] = useState (false);
+  const [trigger, setTrigger] = useState (0);
   const [editTarget, setEditTarget] = useState ({});
 
-  // const handleShow = (employee) => {
-  const handleShow = (employee, i) => {
+  const handleLightboxData = (employee, i) => {
     setEditTarget ({...employee, order: i});
-    setShow (true);
-  };
-  
-  const handleCloseLightbox = () => setShow (false);
+    // setShow (true);
 
-  const handleEditEmployee = (target) => {
-    console.log (editTarget.order);
-    console.log (target);
+    setTrigger (trigger + 1);
+  };
+
+  // const handleCloseLightbox = () => setShow (false);
+
+  const handleEditEmployee = (editedEmployee) => {
 
     const pos = editTarget.order;
 
-    employees[pos].name = target.name;
-    employees[pos].quote = target.quote;
+    console.log (pos);
 
-    console.log (employees);
+    // employees[pos].name.first = editedEmployee.name.first;
+    // employees[pos].name.last = editedEmployee.name.last;
+    // employees[pos].quote = editedEmployee.quote;
 
-    // setEmployees ([...employees, employees[pos] = target])
+    setEmployees (prevEmployees => {
+
+      console.log (prevEmployees[pos]);
+      
+      // prevEmployees[pos].name.first = editedEmployee.name.first;
+      // prevEmployees[pos].name.last = editedEmployee.name.last;
+      // prevEmployees[pos].quote = editedEmployee.quote;
+
+      prevEmployees[pos].name = editedEmployee.name;
+      prevEmployees[pos].quote = editedEmployee.quote;
+
+      console.log (prevEmployees);
+
+      const newEmployees = [...prevEmployees];
+      
+      return newEmployees;
+    })
   };
 
   useEffect (() => {
@@ -85,8 +102,7 @@ function Employees (props) {
                 </Card.Body>
 
                 <div className="editor position-absolute">
-                  <i onClick={ () => handleShow (employee, i) } className="fas fa-edit edit"></i>
-                  {/* <i onClick={ handleShow (i) } className="fas fa-edit edit"></i> */}
+                  <i onClick={ () => handleLightboxData (employee, i) } className="fas fa-edit edit"></i>
                   <i className="fas fa-trash trash"></i>
                 </div>
               </Card>
@@ -95,7 +111,8 @@ function Employees (props) {
         </div>
       </div>
 
-      <Lightbox handleClose={ (isClose) => handleCloseLightbox (isClose) } isShow={ show } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox>
+      {/* <Lightbox handleClose={ handleCloseLightbox } isShow={ show } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox> */}
+      <Lightbox triggerCount={ trigger } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox>
     </div>
   );
 }

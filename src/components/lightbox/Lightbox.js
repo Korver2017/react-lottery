@@ -10,9 +10,8 @@ function Lightbox (props) {
   const [input, setInput] = useState ({ name: { first: '', last: '' }, quote: '' });
   const [employee, setEmployee] = useState ({});
   
-  const handleClose = () => {
-    props.handleClose (show);
-  }
+  // const handleCloseLightbox = () => props.handleClose ();
+  const handleCloseLightbox = () => setShow (false);
 
   const handleEditEmployee = () => {
 
@@ -21,38 +20,45 @@ function Lightbox (props) {
     const first = document.querySelector ('.first').value;
     const last = document.querySelector ('.last').value;
     const quote = document.querySelector ('.quote').value;
-
-    // setEmployee ({ name: { first: first, last: last }, quote: quote });
-
-    // console.log (employee);
     
     props.handleEdit ({ name: { first: first, last: last }, quote: quote });
 
-    handleClose ();
+    handleCloseLightbox ();
   }
+
+  // useEffect (() => {
+
+  //   console.log (props);
+
+  //   setShow (props.isShow);
+    
+  // }, [props.isShow]);
 
   useEffect (() => {
 
     console.log (props);
 
-    setShow (props.isShow);
-    
-  }, [props.isShow]);
-
-  useEffect (() => {
-
-    if (! props.isShow)
+    if (props.triggerCount <= 0)
       return;
 
     console.log (props);
 
     setInput ({ name: { first: props.employee.name.first, last:  props.employee.name.last }, quote: props.employee.quote });
+
+    setShow (true);
     
-  }, [props.employee]);
+  }, [props.triggerCount])
+
+  // useEffect (() => {
+
+  //   if (! show)
+  //     return;
+    
+  // }, [props.employee]);
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={ show } onHide={ handleCloseLightbox }>
         <Modal.Header closeButton>
           <Modal.Title>Edit Employee - { input.name.first } { input.name.last }</Modal.Title>
         </Modal.Header>
@@ -71,7 +77,7 @@ function Lightbox (props) {
         </Modal.Body>
         <Modal.Footer>
 
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={ handleCloseLightbox }>
             Close
           </Button>
           <Button variant="primary" onClick={ handleEditEmployee }>
