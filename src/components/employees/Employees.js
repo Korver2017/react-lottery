@@ -11,11 +11,27 @@ import Lightbox from '../lightbox/Lightbox';
 function Employees (props) {
 
   const [employees, setEmployees] = useState ([]);
-
   const [show, setShow] = useState (false);
+  const [editTarget, setEditTarget] = useState ({});
 
-  const handleShow = () => setShow (true);
+  // const handleShow = (employee) => {
+  const handleShow = (employee) => {
+    setEditTarget (employee);
+    setShow (true);
+  };
+  
   const handleCloseLightbox = () => setShow (false);
+
+  const handleEditEmployee = (target) => {
+
+    console.log (target);
+
+    console.log ('K');
+
+    target.name.first = 'K';
+    target.name.last = 'KK';
+    target.quote = 'KKK';
+  };
 
   useEffect (() => {
 
@@ -66,7 +82,8 @@ function Employees (props) {
                 </Card.Body>
 
                 <div className="editor position-absolute">
-                  <i onClick={ handleShow } className="fas fa-edit edit"></i>
+                  <i onClick={ () => handleShow (employee) } className="fas fa-edit edit"></i>
+                  {/* <i onClick={ handleShow (i) } className="fas fa-edit edit"></i> */}
                   <i className="fas fa-trash trash"></i>
                 </div>
               </Card>
@@ -75,7 +92,7 @@ function Employees (props) {
         </div>
       </div>
 
-      <Lightbox handleClose={ (isClose) => handleCloseLightbox (isClose) } isShow={ show }></Lightbox>
+      <Lightbox handleClose={ (isClose) => handleCloseLightbox (isClose) } isShow={ show } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox>
     </div>
   );
 }

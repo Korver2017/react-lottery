@@ -13,6 +13,15 @@ function Lightbox (props) {
     props.handleClose (show);
   }
 
+  const handleEditEmployee = (target) => {
+
+    console.log ('props.handleEdit');
+    
+    props.handleEdit (target);
+
+    handleClose ();
+  }
+
   useEffect (() => {
 
     console.log (props);
@@ -20,6 +29,12 @@ function Lightbox (props) {
     setShow (props.isShow);
     
   }, [props.isShow]);
+
+  useEffect (() => {
+
+    console.log (props);
+    
+  }, [props.employee]);
 
   return (
     <>
@@ -32,7 +47,8 @@ function Lightbox (props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={ () => handleEditEmployee (props.employee) }>
+          {/* <Button variant="primary" onClick={ handleEditEmployee }> */}
             Save Changes
           </Button>
         </Modal.Footer>
