@@ -1,18 +1,22 @@
+// React & Component
+import { useState, useEffect } from 'react';
 import './Lightbox.css';
 
-import { useState, useEffect } from 'react';
+// JavaScript Plugin
+import { v4 as uuidv4 } from 'uuid';
 
+// CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
 function Lightbox (props) {
 
   const [show, setShow] = useState (false);
-  const [input, setInput] = useState ({ name: { first: '', last: '' }, quote: '' });
-  const [employee, setEmployee] = useState ({});
-  
-  // const handleCloseLightbox = () => props.handleClose ();
+
+  // Initialize employee's data to be edited.
+  const [input, setInput] = useState ({ name: { first: '', last: '' }, quote: '', id: '' });
   const handleCloseLightbox = () => setShow (false);
 
+  // Edit employee data
   const handleEditEmployee = () => {
 
     console.log ('props.handleEdit');
@@ -20,41 +24,27 @@ function Lightbox (props) {
     const first = document.querySelector ('.first').value;
     const last = document.querySelector ('.last').value;
     const quote = document.querySelector ('.quote').value;
+    const id = uuidv4 ();
     
-    props.handleEdit ({ name: { first: first, last: last }, quote: quote });
+    props.handleEdit ({ name: { first: first, last: last }, quote: quote, id: id });
 
+    // Close Lightbox
     handleCloseLightbox ();
   }
-
-  // useEffect (() => {
-
-  //   console.log (props);
-
-  //   setShow (props.isShow);
-    
-  // }, [props.isShow]);
 
   useEffect (() => {
 
     console.log (props);
 
+    // If parent component just initialize, return.
     if (props.triggerCount <= 0)
       return;
 
-    console.log (props);
-
+    // Set up employee props data, then show lightbox.
     setInput ({ name: { first: props.employee.name.first, last:  props.employee.name.last }, quote: props.employee.quote });
-
     setShow (true);
     
-  }, [props.triggerCount])
-
-  // useEffect (() => {
-
-  //   if (! show)
-  //     return;
-    
-  // }, [props.employee]);
+  }, [props.triggerCount]);
 
   return (
     <>

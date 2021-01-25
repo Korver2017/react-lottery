@@ -6,8 +6,9 @@ import Lightbox from '../lightbox/Lightbox';
 // JavaScript Plugin
 import $api from 'axios';
 import rq from 'random-quotes';
+import { v4 as uuidv4 } from 'uuid';
 
-// CSS Plugin
+// CSS Framework
 import { Card } from 'react-bootstrap';
 
 function Employees (props) {
@@ -44,8 +45,12 @@ function Employees (props) {
     // Retrieve (initialize) employees' data.
     $api.get ('https://randomuser.me/api/?results=10')
       .then (res => {
-        const employeeList = [...res.data.results];
-        employeeList.forEach (employee => employee.quote = rq ().body);
+        
+        const cleanSource = [...res.data.results];
+        const employeeList = cleanSource.map (employee => {
+          return { name: employee.name, quote: rq ().body, id: uuidv4 () };
+        });
+        
         setEmployees (employeeList);
       });
   }, []);
@@ -69,7 +74,7 @@ function Employees (props) {
             employees.map ((employee, i) => (
               <Card
               bg="light"
-              key={employee.id.value + i}
+              key={ employee.id }
               text="dark"
               className='mb-2 position-relative'
               >
