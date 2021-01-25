@@ -1,7 +1,7 @@
 // React & Component
 import { useState, useEffect } from 'react';
 import './Employees.css';
-import Lightbox from '../lightbox/Lightbox';
+import EmployeeEditModal from '../modal/EmployeeEditModal';
 
 // JavaScript Plugin
 import $api from 'axios';
@@ -17,11 +17,12 @@ function Employees (props) {
   const [trigger, setTrigger] = useState (0);
   const [editTarget, setEditTarget] = useState ({});
 
-  // Show lightbox & pass selected employee data to lightbox.
-  const handleLightboxData = (employee, i) => {
+  // Show modal & pass selected employee data to modal.
+  const handleEditModalData = (employee, i) => {
 
     setEditTarget ({...employee, order: i});
-    // Trigger children show or hide lightbox by update trigger count.
+
+    // Trigger children show or hide modal by update trigger count.
     setTrigger (trigger + 1);
   };
 
@@ -89,7 +90,7 @@ function Employees (props) {
                 </Card.Body>
 
                 <div className="editor position-absolute">
-                  <i onClick={ () => handleLightboxData (employee, i) } className="fas fa-edit edit"></i>
+                  <i onClick={ () => handleEditModalData (employee, i) } className="fas fa-edit edit"></i>
                   <i className="fas fa-trash trash"></i>
                 </div>
               </Card>
@@ -98,7 +99,7 @@ function Employees (props) {
         </div>
       </div>
 
-      <Lightbox triggerCount={ trigger } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox>
+      <EmployeeEditModal triggerCount={ trigger } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeEditModal>
     </div>
   );
 }

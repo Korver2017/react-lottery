@@ -1,6 +1,6 @@
 // React & Component
 import { useState, useEffect } from 'react';
-import './Lightbox.css';
+import './EmployeeEditModal.css';
 
 // JavaScript Plugin
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
-function Lightbox (props) {
+function EmployeeEditModal (props) {
 
   const [show, setShow] = useState (false);
 
@@ -61,17 +61,17 @@ function Lightbox (props) {
           </Form.Row>
 
           <Form.Row>
-            <Form.Control className="quote" defaultValue={ input.quote } as="textarea" rows={3} />
+            <Form.Control className="quote" defaultValue={ input.quote } placeholder="My Declaration to Win The Prize!" as="textarea" rows={3} />
           </Form.Row>
           
         </Modal.Body>
         <Modal.Footer>
 
-          <Button variant="secondary" onClick={ handleCloseLightbox }>
-            Close
+          <Button variant="warning" onClick={ handleCloseLightbox }>
+            Cancel
           </Button>
-          <Button variant="primary" onClick={ handleEditEmployee }>
-            Save Changes
+          <Button variant="success" onClick={ handleEditEmployee }>
+            Update
           </Button>
         </Modal.Footer>
       </Modal>
@@ -79,4 +79,4 @@ function Lightbox (props) {
   )
 }
 
-export default Lightbox;
+export default EmployeeEditModal;

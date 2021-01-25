@@ -1,8 +1,8 @@
+// React & Component
+import { useState } from 'react';
 import './App.css';
 import Employees from './components/employees/Employees';
 import EmployeeAdd from './components/employeeAdd/EmployeeAdd';
-
-import { useState } from 'react';
 
 function App () {
 
