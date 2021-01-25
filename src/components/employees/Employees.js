@@ -1,12 +1,14 @@
+// React & Component
 import { useState, useEffect } from 'react';
 import './Employees.css';
+import Lightbox from '../lightbox/Lightbox';
 
+// JavaScript Plugin
 import $api from 'axios';
 import rq from 'random-quotes';
 
+// CSS Plugin
 import { Card } from 'react-bootstrap';
-
-import Lightbox from '../lightbox/Lightbox';
 
 function Employees (props) {
 
@@ -16,7 +18,9 @@ function Employees (props) {
 
   // Show lightbox & pass selected employee data to lightbox.
   const handleLightboxData = (employee, i) => {
+
     setEditTarget ({...employee, order: i});
+    // Trigger children show or hide lightbox by update trigger count.
     setTrigger (trigger + 1);
   };
 
