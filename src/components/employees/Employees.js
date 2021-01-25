@@ -44,7 +44,23 @@ function Employees (props) {
 
       const updatedEmployees = [...prevEmployees];
       return updatedEmployees;
-    })
+    });
+  };
+
+  // Delete selected employee's data.
+  const handleDeleteEmployee = () => {
+
+    const pos = editTarget.order;
+
+    setEmployees (prevEmployees => {
+
+      prevEmployees.splice (pos, 1);
+
+      console.log (prevEmployees);
+
+      const updatedEmployees = [...prevEmployees];
+      return updatedEmployees;
+    });
   };
 
   useEffect (() => {
@@ -106,7 +122,7 @@ function Employees (props) {
       </div>
 
       <EmployeeEditModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeEditModal>
-      <EmployeeDeleteModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeDeleteModal>
+      <EmployeeDeleteModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleDelete={ handleDeleteEmployee }></EmployeeDeleteModal>
     </div>
   );
 }

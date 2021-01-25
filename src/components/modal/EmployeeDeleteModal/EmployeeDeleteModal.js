@@ -2,9 +2,6 @@
 import { useState, useEffect } from 'react';
 import './EmployeeDeleteModal.css';
 
-// JavaScript Plugin
-import { v4 as uuidv4 } from 'uuid';
-
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
@@ -13,24 +10,16 @@ function EmployeeDeleteModal (props) {
   const [show, setShow] = useState (false);
 
   // Initialize employee's data to be edited.
-  const [input, setInput] = useState ({ name: { first: '', last: '' }, quote: '', id: '' });
+  const [input, setInput] = useState ({ name: { first: '', last: '' } });
   const handleCloseLightbox = () => setShow (false);
 
-  // Edit employee data
-  const handleEditEmployee = () => {
-
-    console.log ('props.handleEdit');
-
-    const first = document.querySelector ('.first').value;
-    const last = document.querySelector ('.last').value;
-    const quote = document.querySelector ('.quote').value;
-    const id = uuidv4 ();
-    
-    props.handleEdit ({ name: { first: first, last: last }, quote: quote, id: id });
+  // Delete employee data
+  const handleDeleteEmployee = () => {
+    props.handleDelete ();
 
     // Close Lightbox
     handleCloseLightbox ();
-  }
+  };
 
   useEffect (() => {
 
@@ -41,7 +30,7 @@ function EmployeeDeleteModal (props) {
       return;
 
     // Set up employee props data, then show lightbox.
-    setInput ({ name: { first: props.employee.name.first, last:  props.employee.name.last }, quote: props.employee.quote });
+    setInput ({ name: { first: props.employee.name.first, last:  props.employee.name.last } });
     setShow (true);
     
   }, [props.triggerCount]);
@@ -51,7 +40,7 @@ function EmployeeDeleteModal (props) {
       <Modal show={ show } onHide={ handleCloseLightbox }>
 
         <Modal.Header closeButton>
-          <Modal.Title>Delete Employee</Modal.Title>
+          <Modal.Title>Delete Employee - { input.name.first } { input.name.last }</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -66,14 +55,14 @@ function EmployeeDeleteModal (props) {
           <Button variant="warning" onClick={ handleCloseLightbox }>
             Cancel
           </Button>
-          <Button variant="danger" onClick={ handleEditEmployee }>
+          <Button variant="danger" onClick={ handleDeleteEmployee }>
             Delete
           </Button>
-          
+
         </Modal.Footer>
       </Modal>
     </>
   )
-}
+};
 
 export default EmployeeDeleteModal;
