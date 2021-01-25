@@ -11,59 +11,37 @@ import Lightbox from '../lightbox/Lightbox';
 function Employees (props) {
 
   const [employees, setEmployees] = useState ([]);
-  // const [show, setShow] = useState (false);
   const [trigger, setTrigger] = useState (0);
   const [editTarget, setEditTarget] = useState ({});
 
+  // Show lightbox & pass selected employee data to lightbox.
   const handleLightboxData = (employee, i) => {
     setEditTarget ({...employee, order: i});
-    // setShow (true);
-
     setTrigger (trigger + 1);
   };
 
-  // const handleCloseLightbox = () => setShow (false);
-
+  // Update selected employee's data.
   const handleEditEmployee = (editedEmployee) => {
 
     const pos = editTarget.order;
 
-    console.log (pos);
-
-    // employees[pos].name.first = editedEmployee.name.first;
-    // employees[pos].name.last = editedEmployee.name.last;
-    // employees[pos].quote = editedEmployee.quote;
-
     setEmployees (prevEmployees => {
-
-      console.log (prevEmployees[pos]);
-      
-      // prevEmployees[pos].name.first = editedEmployee.name.first;
-      // prevEmployees[pos].name.last = editedEmployee.name.last;
-      // prevEmployees[pos].quote = editedEmployee.quote;
 
       prevEmployees[pos].name = editedEmployee.name;
       prevEmployees[pos].quote = editedEmployee.quote;
 
-      console.log (prevEmployees);
-
-      const newEmployees = [...prevEmployees];
-      
-      return newEmployees;
+      const updatedEmployees = [...prevEmployees];
+      return updatedEmployees;
     })
   };
 
   useEffect (() => {
 
+    // Retrieve (initialize) employees' data.
     $api.get ('https://randomuser.me/api/?results=10')
       .then (res => {
-
-        console.log (res.data.results);
-        
         const employeeList = [...res.data.results];
-
         employeeList.forEach (employee => employee.quote = rq ().body);
-
         setEmployees (employeeList);
       });
   }, []);
@@ -111,7 +89,6 @@ function Employees (props) {
         </div>
       </div>
 
-      {/* <Lightbox handleClose={ handleCloseLightbox } isShow={ show } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox> */}
       <Lightbox triggerCount={ trigger } employee={ editTarget } handleEdit={ handleEditEmployee }></Lightbox>
     </div>
   );
