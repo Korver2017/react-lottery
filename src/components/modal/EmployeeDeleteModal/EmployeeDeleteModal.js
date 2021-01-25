@@ -1,6 +1,6 @@
 // React & Component
 import { useState, useEffect } from 'react';
-import './EmployeeEditModal.css';
+import './EmployeeDeleteModal.css';
 
 // JavaScript Plugin
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
-function EmployeeEditModal (props) {
+function EmployeeDeleteModal (props) {
 
   const [show, setShow] = useState (false);
 
@@ -37,7 +37,7 @@ function EmployeeEditModal (props) {
     console.log (props);
 
     // If parent component just initialize, return.
-    if (props.triggerCount <= 0)
+    if (props.triggerCount <= 0 || props.modal !== 'delete')
       return;
 
     // Set up employee props data, then show lightbox.
@@ -49,19 +49,15 @@ function EmployeeEditModal (props) {
   return (
     <>
       <Modal show={ show } onHide={ handleCloseLightbox }>
+
         <Modal.Header closeButton>
-          <Modal.Title>Edit Employee - { input.name.first } { input.name.last }</Modal.Title>
+          <Modal.Title>Delete Employee</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
 
           <Form.Row className="mt-2 mb-4">
-            <Form.Control className="first col-5 mr-5" defaultValue={ input.name.first } type="text" placeholder="First Name" />
-            <Form.Control className="last col-5" defaultValue={ input.name.last } type="text" placeholder="First Name" />
-          </Form.Row>
-
-          <Form.Row>
-            <Form.Control className="quote" defaultValue={ input.quote } placeholder="My Declaration to Win The Prize!" as="textarea" rows={3} />
+            Are you sure to delete employee - { input.name.first } { input.name.last }?
           </Form.Row>
           
         </Modal.Body>
@@ -70,13 +66,14 @@ function EmployeeEditModal (props) {
           <Button variant="warning" onClick={ handleCloseLightbox }>
             Cancel
           </Button>
-          <Button variant="success" onClick={ handleEditEmployee }>
-            Update
+          <Button variant="danger" onClick={ handleEditEmployee }>
+            Delete
           </Button>
+          
         </Modal.Footer>
       </Modal>
     </>
   )
 }
 
-export default EmployeeEditModal;
+export default EmployeeDeleteModal;

@@ -1,7 +1,8 @@
 // React & Component
 import { useState, useEffect } from 'react';
 import './Employees.css';
-import EmployeeEditModal from '../modal/EmployeeEditModal';
+import EmployeeEditModal from '../modal/EmployeeEditModal/EmployeeEditModal';
+import EmployeeDeleteModal from '../modal/EmployeeDeleteModal/EmployeeDeleteModal';
 
 // JavaScript Plugin
 import $api from 'axios';
@@ -15,15 +16,20 @@ function Employees (props) {
 
   const [employees, setEmployees] = useState ([]);
   const [trigger, setTrigger] = useState (0);
+  const [modalType, setModalType] = useState (null);
   const [editTarget, setEditTarget] = useState ({});
+  // const [deleteTarget, setDeleteTarget] = useState ({});
 
   // Show modal & pass selected employee data to modal.
-  const handleEditModalData = (employee, i) => {
+  const handleEditModalData = (dataset, i) => {
 
-    setEditTarget ({...employee, order: i});
+    setEditTarget ({...dataset.employee, order: i});
 
-    // Trigger children show or hide modal by update trigger count.
+    console.log (dataset.type);
+
+    // Trigger direct type of children show or hide modal by update trigger count.
     setTrigger (trigger + 1);
+    setModalType (dataset.type);
   };
 
   // Update selected employee's data.
@@ -90,8 +96,8 @@ function Employees (props) {
                 </Card.Body>
 
                 <div className="editor position-absolute">
-                  <i onClick={ () => handleEditModalData (employee, i) } className="fas fa-edit edit"></i>
-                  <i className="fas fa-trash trash"></i>
+                  <i onClick={ () => handleEditModalData ( { employee, type: 'edit' }, i) } className="fas fa-edit edit"></i>
+                  <i onClick={ () => handleEditModalData ( { employee, type: 'delete' }, i) }  className="fas fa-trash trash"></i>
                 </div>
               </Card>
             ))
@@ -99,7 +105,8 @@ function Employees (props) {
         </div>
       </div>
 
-      <EmployeeEditModal triggerCount={ trigger } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeEditModal>
+      <EmployeeEditModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeEditModal>
+      <EmployeeDeleteModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeDeleteModal>
     </div>
   );
 }
