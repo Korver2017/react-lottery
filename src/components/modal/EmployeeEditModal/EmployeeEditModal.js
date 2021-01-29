@@ -11,7 +11,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
 
   // Initialize employee's data to be edited.
   const [input, setInput] = useState({name: {first: '', last: ''}, quote: ''});
-  const handleCloseLightbox = () => setShow(false);
+  const handleCloseModal = () => setShow(false);
 
   // Edit employee data
   const handleEdit = () => {
@@ -25,8 +25,8 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
     
     handleEditEmployee({name: {first, last}, quote});
 
-    // Close Lightbox
-    handleCloseLightbox();
+    // Close Modal
+    handleCloseModal();
   }
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
 
   return (
     <>
-      <Modal show={show} onHide={handleCloseLightbox}>
+      <Modal show={show} onHide={handleCloseModal}>
         
         <Modal.Header closeButton>
           <Modal.Title>Edit Employee - {input.name.first} {input.name.last}</Modal.Title>
@@ -65,7 +65,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
         </Modal.Body>
         <Modal.Footer>
 
-          <Button variant="warning" onClick={handleCloseLightbox}>
+          <Button variant="warning" onClick={handleCloseModal}>
             Cancel
           </Button>
           <Button variant="success" onClick={handleEdit}>

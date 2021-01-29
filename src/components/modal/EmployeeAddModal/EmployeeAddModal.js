@@ -1,37 +1,18 @@
 // React & Component
 import { useState, useEffect } from 'react';
-import './EmployeeDeleteModal.css';
+import './EmployeeAddModal.css';
 
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
-function EmployeeDeleteModal({triggerModalCount, modalType, editTarget, handleDeleteEmployee}) {
+function EmployeeAddModal() {
 
   const [show, setShow] = useState(false);
-
-  // Initialize employee's data to be edited.
-  const [input, setInput] = useState({name: {first: '', last: ''}});
   const handleCloseModal = () => setShow(false);
 
-  // Delete employee data
-  const handleDelete = () => {
-
-    handleDeleteEmployee();
-
-    // Close Modal
-    handleCloseModal();
-  };
-
   useEffect(() => {
-
-    // If parent component just initialize, return.
-    if (triggerModalCount <= 0 || modalType !== 'delete')
-      return;
-
-    // Set up employee props data, then show lightbox.
-    setInput({name: {first: editTarget.name.first, last: editTarget.name.last}});
     setShow(true);
-  }, [triggerModalCount, modalType, editTarget]);
+  }, []);
 
   return (
     <>
@@ -63,4 +44,4 @@ function EmployeeDeleteModal({triggerModalCount, modalType, editTarget, handleDe
   )
 };
 
-export default EmployeeDeleteModal;
+export default EmployeeAddModal;
