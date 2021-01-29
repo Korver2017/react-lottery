@@ -15,7 +15,7 @@ import { Card } from 'react-bootstrap';
 function Employees (props) {
 
   const [employees, setEmployees] = useState ([]);
-  const [trigger, setTrigger] = useState (0);
+  const [triggerModalCount, setTriggerModalCount] = useState (0);
   const [modalType, setModalType] = useState (null);
   const [editTarget, setEditTarget] = useState ({});
   // const [deleteTarget, setDeleteTarget] = useState ({});
@@ -28,7 +28,7 @@ function Employees (props) {
     console.log (dataset.type);
 
     // Trigger direct type of children show or hide modal by update trigger count.
-    setTrigger (trigger + 1);
+    setTriggerModalCount (triggerModalCount + 1);
     setModalType (dataset.type);
   };
 
@@ -121,8 +121,8 @@ function Employees (props) {
         </div>
       </div>
 
-      <EmployeeEditModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleEdit={ handleEditEmployee }></EmployeeEditModal>
-      <EmployeeDeleteModal triggerCount={ trigger } modal={ modalType } employee={ editTarget } handleDelete={ handleDeleteEmployee }></EmployeeDeleteModal>
+      <EmployeeEditModal triggerModalCount={ triggerModalCount } modalType={ modalType } editTarget={ editTarget } handleEditEmployee={ handleEditEmployee }></EmployeeEditModal>
+      <EmployeeDeleteModal triggerModalCount={ triggerModalCount } modalType={ modalType } editTarget={ editTarget } handleDeleteEmployee={ handleDeleteEmployee }></EmployeeDeleteModal>
     </div>
   );
 }

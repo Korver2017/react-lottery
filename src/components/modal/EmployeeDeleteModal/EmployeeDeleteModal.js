@@ -5,7 +5,7 @@ import './EmployeeDeleteModal.css';
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
-function EmployeeDeleteModal (props) {
+function EmployeeDeleteModal ({triggerModalCount, modalType, editTarget, handleDeleteEmployee}) {
 
   const [show, setShow] = useState (false);
 
@@ -14,8 +14,8 @@ function EmployeeDeleteModal (props) {
   const handleCloseLightbox = () => setShow (false);
 
   // Delete employee data
-  const handleDeleteEmployee = () => {
-    props.handleDelete ();
+  const handleDelete = () => {
+    handleDeleteEmployee ();
 
     // Close Lightbox
     handleCloseLightbox ();
@@ -23,17 +23,15 @@ function EmployeeDeleteModal (props) {
 
   useEffect (() => {
 
-    console.log (props);
-
     // If parent component just initialize, return.
-    if (props.triggerCount <= 0 || props.modal !== 'delete')
+    if (triggerModalCount <= 0 || modalType !== 'delete')
       return;
 
     // Set up employee props data, then show lightbox.
-    setInput ({ name: { first: props.employee.name.first, last:  props.employee.name.last } });
+    setInput ({ name: { first: editTarget.name.first, last: editTarget.name.last } });
     setShow (true);
     
-  }, [props.triggerCount]);
+  }, [triggerModalCount]);
 
   return (
     <>
@@ -55,7 +53,7 @@ function EmployeeDeleteModal (props) {
           <Button variant="warning" onClick={ handleCloseLightbox }>
             Cancel
           </Button>
-          <Button variant="danger" onClick={ handleDeleteEmployee }>
+          <Button variant="danger" onClick={ handleDelete }>
             Delete
           </Button>
 

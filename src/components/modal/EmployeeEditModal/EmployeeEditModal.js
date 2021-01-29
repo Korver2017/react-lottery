@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
-function EmployeeEditModal (props) {
+function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEditEmployee}) {
 
   const [show, setShow] = useState (false);
 
@@ -17,7 +17,7 @@ function EmployeeEditModal (props) {
   const handleCloseLightbox = () => setShow (false);
 
   // Edit employee data
-  const handleEditEmployee = () => {
+  const handleEdit = () => {
 
     console.log ('props.handleEdit');
 
@@ -26,7 +26,7 @@ function EmployeeEditModal (props) {
     const quote = document.querySelector ('.quote').value;
     const id = uuidv4 ();
     
-    props.handleEdit ({ name: { first: first, last: last }, quote: quote, id: id });
+    handleEditEmployee ({ name: { first: first, last: last }, quote: quote, id: id });
 
     // Close Lightbox
     handleCloseLightbox ();
@@ -34,17 +34,15 @@ function EmployeeEditModal (props) {
 
   useEffect (() => {
 
-    console.log (props);
-
     // If parent component just initialize, return.
-    if (props.triggerCount <= 0 || props.modal !== 'edit')
+    if (triggerModalCount <= 0 || modalType !== 'edit')
       return;
 
     // Set up employee props data, then show lightbox.
-    setInput ({ name: { first: props.employee.name.first, last:  props.employee.name.last }, quote: props.employee.quote });
+    setInput ({ name: { first: editTarget.name.first, last:  editTarget.name.last }, quote: editTarget.quote });
     setShow (true);
     
-  }, [props.triggerCount]);
+  }, [triggerModalCount]);
 
   return (
     <>
@@ -73,7 +71,7 @@ function EmployeeEditModal (props) {
           <Button variant="warning" onClick={ handleCloseLightbox }>
             Cancel
           </Button>
-          <Button variant="success" onClick={ handleEditEmployee }>
+          <Button variant="success" onClick={ handleEdit }>
             Update
           </Button>
           
