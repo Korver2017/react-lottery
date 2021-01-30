@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 // CSS Framework
 import { Card } from 'react-bootstrap';
 
-function Employees(props) {
+function Employees({addedEmployee}) {
 
   const [employees, setEmployees] = useState([]);
   const [triggerModalCount, setTriggerModalCount] = useState(0);
@@ -73,14 +73,14 @@ function Employees(props) {
       });
   }, []);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   if (! props.addedEmployee)
-  //     return;
+    if (Object.keys(addedEmployee).length <= 0) 
+      return;
 
-  //   setEmployees ([...employees, props.addedEmployee]);
+    setEmployees ([...employees, addedEmployee]);
 
-  // }, [props.addedEmployee]);
+  }, [addedEmployee]);
   
   return (
     <div className="employees">
