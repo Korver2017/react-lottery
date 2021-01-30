@@ -54,7 +54,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
           <Form.Row className="mt-2 mb-4">
 
             <Form.Control className="first col-5 mr-5" defaultValue={input.name.first} type="text" placeholder="First Name" />
-            <Form.Control className="last col-5" defaultValue={input.name.last} type="text" placeholder="First Name" />
+            <Form.Control className="last col-5" defaultValue={input.name.last} type="text" placeholder="Last Name" />
 
           </Form.Row>
 

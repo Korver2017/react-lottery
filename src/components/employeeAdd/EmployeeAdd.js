@@ -20,8 +20,6 @@ function EmployeeAdd (props) {
     console.log (addedEmployee);
 
     input.value = '';
-    
-    props.handleAddEmployee (addedEmployee);
   };
   
   return (
