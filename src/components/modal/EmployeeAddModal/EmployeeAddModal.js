@@ -2,17 +2,27 @@
 import { useState, useEffect } from 'react';
 import './EmployeeAddModal.css';
 
+// avaScript Plugins
+import { v4 as uuidv4 } from 'uuid';
+
 // CSS Framework
 import { Button, Modal, Form } from 'react-bootstrap';
 
-function EmployeeAddModal({showModal, handleTriggerModal}) {
+function EmployeeAddModal({showModal, handleTriggerModal, handleAddEmployee}) {
 
-  // const [show, setShow] = useState(false);
-  // const handleCloseModal = () => setShow(false);
+  const handleAdd = () => {
 
-  useEffect(() => {
-    console.log ('showModal', showModal);
-  }, [showModal]);
+    const addedEmployee = {
+      name: {
+        first: document.querySelector('.first').value,
+        last: document.querySelector('.last').value
+      },
+      quote: document.querySelector('.quote').value,
+      id: uuidv4()
+    };
+
+    handleAddEmployee(addedEmployee);
+  }
 
   return (
     <>
@@ -41,7 +51,7 @@ function EmployeeAddModal({showModal, handleTriggerModal}) {
           <Button variant="warning" onClick={handleTriggerModal}>
             Cancel
           </Button>
-          <Button variant="danger" >
+          <Button variant="danger" onClick={handleAdd}>
             Delete
           </Button>
 

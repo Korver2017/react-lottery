@@ -7,29 +7,19 @@ import EmployeeAddModal from './components/modal/EmployeeAddModal/EmployeeAddMod
 function App () {
 
   const [showModal, setShowModal] = useState(false);
-  const [addedEmployee, setAddedEmployee] = useState (null);
+  const [addedEmployee, setAddedEmployee] = useState({});
 
-  const handleTriggerModal = () => {
-    console.log ('handleTriggerModal');
-    setShowModal (preValue => !preValue);
-  }
-
-  function handleAddEmployee (addedEmployee) {
-
-    console.log (addedEmployee);
-    console.log ('handleAddEmployee');
-
-    setAddedEmployee (addedEmployee);
-  };
+  const handleTriggerModal = () => setShowModal (preValue => !preValue);
+  const handleAddEmployee = (addedEmployee) => setAddedEmployee(addedEmployee);
   
   return (
     <div className="App">
-      {/* <EmployeeAdd  /> */}
 
       <div onClick={handleTriggerModal} className="plus fas fa-plus-circle" />
-      <EmployeeAddModal showModal={showModal} handleTriggerModal={handleTriggerModal} />
 
-      <Employees addedEmployee={ addedEmployee } />
+      <EmployeeAddModal showModal={showModal} handleTriggerModal={handleTriggerModal} handleAddEmployee={handleAddEmployee} />
+
+      <Employees addedEmployee={addedEmployee}  />
     </div>
   );
 }
