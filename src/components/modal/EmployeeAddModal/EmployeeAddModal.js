@@ -12,16 +12,17 @@ function EmployeeAddModal({showModal, handleTriggerModal, handleAddEmployee}) {
 
   const handleAdd = () => {
 
-    const addedEmployee = {
-      name: {
-        first: document.querySelector('.first').value,
-        last: document.querySelector('.last').value
-      },
-      quote: document.querySelector('.quote').value,
-      id: uuidv4()
-    };
+    const first = document.querySelector('.first').value;
+    const last = document.querySelector('.last').value;
+    const quote = document.querySelector('.quote').value;
+    
+    if (!first || !last || !quote)
+      return alert('Sorry, columns may not be empty.');
 
-    handleAddEmployee(addedEmployee);
+    handleAddEmployee({name: {first, last}, quote, id: uuidv4()});
+
+    // Close modal
+    handleTriggerModal();
   }
 
   return (
@@ -51,8 +52,8 @@ function EmployeeAddModal({showModal, handleTriggerModal, handleAddEmployee}) {
           <Button variant="warning" onClick={handleTriggerModal}>
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleAdd}>
-            Delete
+          <Button variant="success" onClick={handleAdd}>
+            Create
           </Button>
 
         </Modal.Footer>
