@@ -11,12 +11,24 @@ import { v4 as uuidv4 } from 'uuid';
 
 // CSS Framework
 // import { Card } from 'react-bootstrap';
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
+
+const useStyles = makeStyles (theme => ({
+  cardGrid: {
+    padding: theme.spacing (2),
+  },
+  card: {
+    textAlign: 'center',
+    color: theme.palette.success.main,
+  },
+}));
 
 function Employees({addedEmployee}) {
 
@@ -87,16 +99,17 @@ function Employees({addedEmployee}) {
     setEmployees ([...employees, addedEmployee]);
 
   }, [addedEmployee]);
+
+  const classes = useStyles ();
   
   return (
     <div className="employees">
-      <div className="container">
-        <div className="row">
-          
-          {
-            employees.map ((employee, i) => (
+      <Grid container>
 
-              <Card key={employee.id}>
+        {
+          employees.map ((employee, i) => (
+            <Grid key={employee.id} className={classes.cardGrid} item xs={3}>
+              <Card style={{ height: 100 + '%' }} className={classes.card}>
                 <CardHeader title={employee.name.first + ' ' + employee.name.last} />
                 <CardContent>
                   My Declaration to Win The Prize:
@@ -112,10 +125,10 @@ function Employees({addedEmployee}) {
                   <DeleteForeverRoundedIcon />
                 </IconButton>
               </Card>
-            ))
-          }
-        </div>
-      </div>
+            </Grid>
+          ))
+        }
+      </Grid>
 
       <EmployeeEditModal triggerModalCount={triggerModalCount} modalType={modalType} editTarget={editTarget} handleEditEmployee={handleEditEmployee}></EmployeeEditModal>
       <EmployeeDeleteModal triggerModalCount={triggerModalCount} modalType={modalType} editTarget={editTarget} handleDeleteEmployee={handleDeleteEmployee}></EmployeeDeleteModal>
