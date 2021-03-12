@@ -10,7 +10,13 @@ import rq from 'random-quotes';
 import { v4 as uuidv4 } from 'uuid';
 
 // CSS Framework
-import { Card } from 'react-bootstrap';
+// import { Card } from 'react-bootstrap';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
+import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
+import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 
 function Employees({addedEmployee}) {
 
@@ -86,28 +92,25 @@ function Employees({addedEmployee}) {
     <div className="employees">
       <div className="container">
         <div className="row">
+          
           {
-            employees.map((employee, i) => (
-              <Card
-              bg="light"
-              key={employee.id}
-              text="dark"
-              className='mb-2 position-relative'
-              >
-                <Card.Header className="font-weight-bold">{employee.name.first} { employee.name.last}</Card.Header>
-                <Card.Body>
-                  <Card.Text className="font-weight-bold">
-                    My Declaration to Win The Prize:
-                  </Card.Text>
-                  <Card.Text className="text-left">
-                    {employee.quote}
-                  </Card.Text>
-                </Card.Body>
+            employees.map ((employee, i) => (
 
-                <div className="editor position-absolute">
-                  <i onClick={() => handleEditModalData({employee, type: 'edit'}, i)} className="fas fa-edit edit"></i>
-                  <i onClick={() => handleEditModalData({employee, type: 'delete'}, i)} className="fas fa-trash trash"></i>
-                </div>
+              <Card key={employee.id}>
+                <CardHeader title={employee.name.first + ' ' + employee.name.last} />
+                <CardContent>
+                  My Declaration to Win The Prize:
+                  <br/>
+                  {employee.quote}
+                </CardContent>
+
+                <IconButton onClick={() => handleEditModalData ({employee, type: 'edit'}, i)}>
+                  <CreateRoundedIcon />
+                </IconButton>
+
+                <IconButton onClick={() => handleEditModalData ({employee, type: 'delete'}, i)}>
+                  <DeleteForeverRoundedIcon />
+                </IconButton>
               </Card>
             ))
           }
