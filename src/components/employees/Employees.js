@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from 'uuid';
 // CSS Framework
 // import { Card } from 'react-bootstrap';
 import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -21,13 +23,20 @@ import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
 
 const useStyles = makeStyles (theme => ({
-  cardGrid: {
+  root: {
     padding: theme.spacing (2),
   },
   card: {
-    textAlign: 'center',
-    color: theme.palette.success.main,
+    height: '100%'
   },
+  sub: {
+    // marginBottom: theme.spacing (5),
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  icons: {
+    textAlign: 'right',
+  }
 }));
 
 function Employees({addedEmployee}) {
@@ -108,22 +117,25 @@ function Employees({addedEmployee}) {
 
         {
           employees.map ((employee, i) => (
-            <Grid key={employee.id} className={classes.cardGrid} item xs={3}>
-              <Card style={{ height: 100 + '%' }} className={classes.card}>
+            <Grid key={employee.id} className={classes.root} item xs={3}>
+              {/* <Card style={{ height: 100 + '%' }} className={classes.card}> */}
+              <Card className={classes.card}>
                 <CardHeader title={employee.name.first + ' ' + employee.name.last} />
+                <Divider variant="middle" />
                 <CardContent>
-                  My Declaration to Win The Prize:
-                  <br/>
+                  <p className={classes.sub}>My Declaration to <br /> Win The Prize:</p>
                   {employee.quote}
                 </CardContent>
 
-                <IconButton onClick={() => handleEditModalData ({employee, type: 'edit'}, i)}>
-                  <CreateRoundedIcon />
-                </IconButton>
+                <Box className={classes.icons}>
+                  <IconButton onClick={() => handleEditModalData ({employee, type: 'edit'}, i)}>
+                    <CreateRoundedIcon />
+                  </IconButton>
 
-                <IconButton onClick={() => handleEditModalData ({employee, type: 'delete'}, i)}>
-                  <DeleteForeverRoundedIcon />
-                </IconButton>
+                  <IconButton onClick={() => handleEditModalData ({employee, type: 'delete'}, i)}>
+                    <DeleteForeverRoundedIcon />
+                  </IconButton>
+                </Box>
               </Card>
             </Grid>
           ))
