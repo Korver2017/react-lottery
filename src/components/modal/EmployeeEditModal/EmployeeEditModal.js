@@ -11,14 +11,30 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles (theme => ({
+  form: {
+    margin: theme.spacing (1),
+  },
+  textInput: {
+    width: 200,
+    margin: theme.spacing (1),
+  },
+
+}));
+
 function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEditEmployee}) {
+
+  const classes = useStyles ();
 
   const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
   // Initialize employee's data to be edited.
-  // const [input, setInput] = useState({name: {first: '', last: ''}, quote: ''});
+  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
   const handleCloseModal = () => setOpen (false);
 
   useEffect (() => {
@@ -28,7 +44,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
       return;
 
     // Set up employee props data, then show lightbox.
-    // setInput({name: {first: editTarget.name.first, last: editTarget.name.last}, quote: editTarget.quote});
+    setInput ({name: {first: editTarget.name.first, last: editTarget.name.last}, quote: editTarget.quote});
     setOpen (true);
     
   }, [triggerModalCount, modalType, editTarget]);
@@ -40,11 +56,48 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
       onClose={handleCloseModal}
       aria-labelledby="responsive-dialog-title"
     >
+      
       <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Let Google help apps determine location. This means sending anonymous location data to
-          Google, even when no apps are running.
+          
+          <form noValidate autoComplete="off">
+            <div>
+              <TextField
+                className={classes.textInput}
+                error
+                id="outlined-error-helper-text"
+                label="First Name"
+                defaultValue={input.name.first}
+                helperText="Incorrect entry."
+                variant="outlined"
+              />
+              <TextField
+                className={classes.textInput}
+                error
+                id="outlined-error-helper-text"
+                label="Last Name"
+                defaultValue={input.name.last}
+                helperText="Incorrect entry."
+                variant="outlined"
+              />
+            </div>
+          </form>
+
+          <form className={classes.form}>
+            <div>
+              <TextField
+                error
+                fullWidth
+                id="outlined-multiline-static"
+                label="My Declaration"
+                multiline
+                rows={4}
+                defaultValue={input.quote}
+                variant="outlined"
+              />
+            </div>
+          </form>
         </DialogContentText>
       </DialogContent>
       <DialogActions>
