@@ -22,8 +22,9 @@ const useStyles = makeStyles (theme => ({
     width: 200,
     margin: theme.spacing (1),
   },
-
 }));
+
+let first, last, quote;
 
 function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEditEmployee}) {
 
@@ -48,6 +49,22 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
     setOpen (true);
     
   }, [triggerModalCount, modalType, editTarget]);
+  
+  // Edit employee data
+  const handleEdit = () => {
+
+    console.log ('first: ', first);
+    console.log ('last: ', last);
+    console.log ('quote: ', quote);
+
+    // if (! first.value.trim () || ! last.value.trim () || ! quote.value.trim ())
+    //   return alert ('Sorry, columns may not be empty.');
+    
+    // handleEditEmployee ({name: {first: first.value, last: last.value}, quote: quote.value});
+
+    // Close Modal
+    handleCloseModal ();
+  }
 
   return (
     <Dialog
@@ -57,15 +74,21 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
       aria-labelledby="responsive-dialog-title"
     >
       
-      <DialogTitle id="responsive-dialog-title">{"Use Google's location service?"}</DialogTitle>
+      <DialogTitle id="responsive-dialog-title">
+        {input.name.first + ' ' + input.name.last}
+      </DialogTitle>
+
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText component={'span'}>
           
           <form noValidate autoComplete="off">
             <div>
               <TextField
+                onChange={e => {
+                  first = e.target.value
+                }}
+                error={first === ''}
                 className={classes.textInput}
-                error
                 id="outlined-error-helper-text"
                 label="First Name"
                 defaultValue={input.name.first}
@@ -73,6 +96,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
                 variant="outlined"
               />
               <TextField
+                onChange={e => last = e.target.value}
                 className={classes.textInput}
                 error
                 id="outlined-error-helper-text"
@@ -87,6 +111,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
           <form className={classes.form}>
             <div>
               <TextField
+                onChange={e => quote = e.target.value}
                 error
                 fullWidth
                 id="outlined-multiline-static"
@@ -101,31 +126,15 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={handleCloseModal} color="primary">
+        <Button autoFocus onClick={handleEdit} variant="outlined" color="primary">
           Disagree
         </Button>
-        <Button onClick={handleCloseModal} color="primary" autoFocus>
+        <Button onClick={handleCloseModal} variant="outlined" color="primary" autoFocus>
           Agree
         </Button>
       </DialogActions>
     </Dialog>
   )
-
-  // Edit employee data
-  // const handleEdit = () => {
-
-  //   const first = document.querySelector('.first').value;
-  //   const last = document.querySelector('.last').value;
-  //   const quote = document.querySelector('.quote').value;
-
-  //   if (!first || !last || !quote)
-  //     return alert('Sorry, columns may not be empty.');
-    
-  //   handleEditEmployee({name: {first, last}, quote});
-
-  //   // Close Modal
-  //   handleCloseModal();
-  // }
 
   // return (
 

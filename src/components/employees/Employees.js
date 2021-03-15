@@ -118,7 +118,6 @@ function Employees({addedEmployee}) {
         {
           employees.map ((employee, i) => (
             <Grid key={employee.id} className={classes.root} item xs={3}>
-              {/* <Card style={{ height: 100 + '%' }} className={classes.card}> */}
               <Card className={classes.card}>
                 <CardHeader title={employee.name.first + ' ' + employee.name.last} />
                 <Divider variant="middle" />
