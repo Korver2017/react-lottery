@@ -1,6 +1,5 @@
 // React & Component
 import { useState, useEffect } from 'react';
-import './EmployeeAddModal.css';
 
 // avaScript Plugins
 import { v4 as uuidv4 } from 'uuid';

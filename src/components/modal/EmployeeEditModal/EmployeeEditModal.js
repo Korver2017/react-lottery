@@ -1,6 +1,5 @@
 // React & Component
 import { useState, useEffect } from 'react';
-// import './EmployeeEditModal.css';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
