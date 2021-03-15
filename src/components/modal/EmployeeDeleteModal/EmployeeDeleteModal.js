@@ -1,65 +1,126 @@
 // React & Component
 import { useState, useEffect } from 'react';
-import './EmployeeDeleteModal.css';
 
 // CSS Framework
-import { Button, Modal, Form } from 'react-bootstrap';
+// import { Button, Modal, Form } from 'react-bootstrap';
 
-function EmployeeDeleteModal({triggerModalCount, modalType, editTarget, handleDeleteEmployee}) {
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
-  const [show, setShow] = useState(false);
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles (theme => ({
+  form: {
+    margin: theme.spacing (1),
+  },
+  textInput: {
+    width: 200,
+    margin: theme.spacing (1),
+  },
+}));
+
+function EmployeeDeleteModal ({triggerModalCount, modalType, editTarget, handleDeleteEmployee}) {
+
+  const classes = useStyles ();
+
+  const [open, setOpen] = useState (false);
+  const theme = useTheme ();
+  const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
   // Initialize employee's data to be edited.
-  const [input, setInput] = useState({name: {first: '', last: ''}});
-  const handleCloseModal = () => setShow(false);
+  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
+  const handleCloseModal = () => setOpen (false);
 
   // Delete employee data
   const handleDelete = () => {
 
-    handleDeleteEmployee();
+    handleDeleteEmployee ();
 
     // Close Modal
-    handleCloseModal();
+    handleCloseModal ();
   };
 
-  useEffect(() => {
+  useEffect (() => {
 
     // If parent component just initialize, return.
     if (triggerModalCount <= 0 || modalType !== 'delete')
       return;
 
     // Set up employee props data, then show lightbox.
-    setInput({name: {first: editTarget.name.first, last: editTarget.name.last}});
-    setShow(true);
+    setInput ({name: {first: editTarget.name.first, last: editTarget.name.last}});
+    setOpen (true);
   }, [triggerModalCount, modalType, editTarget]);
 
   return (
-    <>
-      <Modal show={show} onHide={handleCloseModal}>
+    <Dialog
+      fullScreen={fullScreen}
+      open={open}
+      onClose={handleCloseModal}
+      aria-labelledby="responsive-dialog-title"
+    >
+      
+      <DialogTitle id="responsive-dialog-title">
+        {input.name.first + ' ' + input.name.last}
+      </DialogTitle>
 
-        <Modal.Header closeButton>
-          <Modal.Title>Delete Employee - {input.name.first} {input.name.last}</Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-
-          <Form.Row className="mt-2 mb-4">
-            Are you sure to delete employee - {input.name.first} {input.name.last}?
-          </Form.Row>
+      <DialogContent>
+        <DialogContentText component={'span'}>
           
-        </Modal.Body>
-        <Modal.Footer>
+          <form noValidate autoComplete="off">
+            <div>
+              <TextField
+                error
+                className={classes.textInput}
+                id="outlined-error-helper-text"
+                label="First Name"
+                defaultValue={input.name.first}
+                helperText="Incorrect entry."
+                variant="outlined"
+              />
+              <TextField
+                className={classes.textInput}
+                error
+                id="outlined-error-helper-text"
+                label="Last Name"
+                defaultValue={input.name.last}
+                helperText="Incorrect entry."
+                variant="outlined"
+              />
+            </div>
+          </form>
 
-          <Button variant="warning" onClick={handleCloseModal}>
-            Cancel
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Delete
-          </Button>
-
-        </Modal.Footer>
-      </Modal>
-    </>
+          <form className={classes.form}>
+            <div>
+              <TextField
+                error
+                fullWidth
+                id="outlined-multiline-static"
+                label="My Declaration"
+                multiline
+                rows={4}
+                defaultValue={input.quote}
+                variant="outlined"
+              />
+            </div>
+          </form>
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button autoFocus onClick={handleDelete} variant="outlined" color="primary">
+          Disagree
+        </Button>
+        <Button onClick={handleDelete} variant="outlined" color="primary" autoFocus>
+          Agree
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 };
 
