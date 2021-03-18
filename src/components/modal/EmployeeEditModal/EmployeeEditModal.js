@@ -23,8 +23,6 @@ const useStyles = makeStyles (theme => ({
   },
 }));
 
-let first, last, quote;
-
 function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEditEmployee}) {
 
   const classes = useStyles ();
@@ -34,7 +32,14 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
   // Initialize employee's data to be edited.
-  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
+  const [first, setFirst] = useState ('');
+  const [last, setLast] = useState ('');
+  const [quote, setQuote] = useState ('');
+
+  const [fixedFirst, setFixedFirst] = useState ('');
+  const [fixedLast, setFixedLast] = useState ('');
+  
+  // const [bindInput, setBindInput] = useState ({name: {first: '', last: ''}, quote: ''});
   const handleCloseModal = () => setOpen (false);
 
   useEffect (() => {
@@ -44,17 +49,36 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
       return;
 
     // Set up employee props data, then show lightbox.
-    setInput ({name: {first: editTarget.name.first, last: editTarget.name.last}, quote: editTarget.quote});
+    setFirst (editTarget.name.first);
+    setFixedFirst (editTarget.name.first);
+    
+    setLast (editTarget.name.last);
+    setFixedLast (editTarget.name.last)
+    // fixedLast = editTarget.name.last;
+    
+    setQuote (editTarget.quote);
+    // fixedQuote = editTarget.Quote;
+    
     setOpen (true);
     
   }, [triggerModalCount, modalType, editTarget]);
+
+  const handleInputChange = (e, col) => {
+
+    console.log ('e: ', e.target.value);
+    console.log ('col: ', col);
+
+    if (col === 'first')
+      return setFirst (e.target.value);
+
+    if (col === 'last')
+      return setLast (e.target.value);
+
+    setQuote (e.target.value);
+  }
   
   // Edit employee data
   const handleEdit = () => {
-
-    console.log ('first: ', first);
-    console.log ('last: ', last);
-    console.log ('quote: ', quote);
 
     // if (! first.value.trim () || ! last.value.trim () || ! quote.value.trim ())
     //   return alert ('Sorry, columns may not be empty.');
@@ -74,7 +98,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
     >
       
       <DialogTitle id="responsive-dialog-title">
-        {input.name.first + ' ' + input.name.last}
+        {fixedFirst + ' ' + fixedLast}
       </DialogTitle>
 
       <DialogContent>
@@ -83,24 +107,22 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
           <form noValidate autoComplete="off">
             <div>
               <TextField
-                onChange={e => {
-                  first = e.target.value
-                }}
-                error={first === ''}
+                onChange={(e) => {handleInputChange (e, 'first')}}
+                error={! first}
                 className={classes.textInput}
                 id="outlined-error-helper-text"
                 label="First Name"
-                defaultValue={input.name.first}
+                defaultValue={first}
                 helperText="Incorrect entry."
                 variant="outlined"
               />
               <TextField
-                onChange={e => last = e.target.value}
+                onChange={(e) => {handleInputChange (e, 'last')}}
                 className={classes.textInput}
-                error
+                error={! last}
                 id="outlined-error-helper-text"
                 label="Last Name"
-                defaultValue={input.name.last}
+                defaultValue={last}
                 helperText="Incorrect entry."
                 variant="outlined"
               />
@@ -110,14 +132,14 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
           <form className={classes.form}>
             <div>
               <TextField
-                onChange={e => quote = e.target.value}
-                error
+                onChange={(e) => {handleInputChange (e, 'quote')}}
+                error={! quote}
                 fullWidth
                 id="outlined-multiline-static"
                 label="My Declaration"
                 multiline
                 rows={4}
-                defaultValue={input.quote}
+                defaultValue={quote}
                 variant="outlined"
               />
             </div>
