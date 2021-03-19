@@ -23,7 +23,9 @@ const useStyles = makeStyles (theme => ({
   },
 }));
 
-function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEditEmployee}) {
+function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmployee}) {
+
+  console.log ('target: ', target);
 
   const classes = useStyles ();
 
@@ -36,10 +38,6 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
   const [last, setLast] = useState ('');
   const [quote, setQuote] = useState ('');
 
-  const [fixedFirst, setFixedFirst] = useState ('');
-  const [fixedLast, setFixedLast] = useState ('');
-  
-  // const [bindInput, setBindInput] = useState ({name: {first: '', last: ''}, quote: ''});
   const handleCloseModal = () => setOpen (false);
 
   useEffect (() => {
@@ -49,29 +47,22 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
       return;
 
     // Set up employee props data, then show lightbox.
-    setFirst (editTarget.name.first);
-    setFixedFirst (editTarget.name.first);
-    
-    setLast (editTarget.name.last);
-    setFixedLast (editTarget.name.last)
-    // fixedLast = editTarget.name.last;
-    
-    setQuote (editTarget.quote);
-    // fixedQuote = editTarget.Quote;
-    
+    setFirst (target.name.first);
+    setLast (target.name.last);
+    setQuote (target.quote);
     setOpen (true);
     
-  }, [triggerModalCount, modalType, editTarget]);
+  }, [triggerModalCount, modalType, target]);
 
-  const handleInputChange = (e, col) => {
+  const handleInputChange = (e, column) => {
 
     console.log ('e: ', e.target.value);
-    console.log ('col: ', col);
+    console.log ('column: ', column);
 
-    if (col === 'first')
+    if (column === 'first')
       return setFirst (e.target.value);
 
-    if (col === 'last')
+    if (column === 'last')
       return setLast (e.target.value);
 
     setQuote (e.target.value);
@@ -89,72 +80,78 @@ function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEdi
     handleCloseModal ();
   }
 
+  if (Object.keys (target).length >= 1)
+    return (
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleCloseModal}
+        aria-labelledby="responsive-dialog-title"
+      >
+        
+        <DialogTitle id="responsive-dialog-title">
+          {target.name.first + ' ' + target.name.last}
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText component={'span'}>
+            
+            <form noValidate autoComplete="off">
+              <div>
+                <TextField
+                  onChange={(e) => {handleInputChange (e, 'first')}}
+                  error={! first}
+                  className={classes.textInput}
+                  id="outlined-error-helper-text"
+                  label="First Name"
+                  defaultValue={first}
+                  helperText={! first ? "Field may not be empty." : ''}
+                  variant="outlined"
+                />
+                <TextField
+                  onChange={(e) => {handleInputChange (e, 'last')}}
+                  className={classes.textInput}
+                  error={! last}
+                  id="outlined-error-helper-text"
+                  label="Last Name"
+                  defaultValue={last}
+                  helperText={! last ? "Field may not be empty." : ''}
+                  variant="outlined"
+                />
+              </div>
+            </form>
+
+            <form className={classes.form}>
+              <div>
+                <TextField
+                  onChange={(e) => {handleInputChange (e, 'quote')}}
+                  error={! quote}
+                  fullWidth
+                  id="outlined-multiline-static"
+                  label="My Declaration"
+                  multiline
+                  rows={4}
+                  defaultValue={quote}
+                  helperText={! quote ? "Field may not be empty." : ''}
+                  variant="outlined"
+                />
+              </div>
+            </form>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button autoFocus onClick={handleEdit} variant="outlined" color="primary">
+            Disagree
+          </Button>
+          <Button onClick={handleCloseModal} variant="outlined" color="primary" autoFocus>
+            Agree
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
+
   return (
-    <Dialog
-      fullScreen={fullScreen}
-      open={open}
-      onClose={handleCloseModal}
-      aria-labelledby="responsive-dialog-title"
-    >
-      
-      <DialogTitle id="responsive-dialog-title">
-        {fixedFirst + ' ' + fixedLast}
-      </DialogTitle>
-
-      <DialogContent>
-        <DialogContentText component={'span'}>
-          
-          <form noValidate autoComplete="off">
-            <div>
-              <TextField
-                onChange={(e) => {handleInputChange (e, 'first')}}
-                error={! first}
-                className={classes.textInput}
-                id="outlined-error-helper-text"
-                label="First Name"
-                defaultValue={first}
-                helperText="Incorrect entry."
-                variant="outlined"
-              />
-              <TextField
-                onChange={(e) => {handleInputChange (e, 'last')}}
-                className={classes.textInput}
-                error={! last}
-                id="outlined-error-helper-text"
-                label="Last Name"
-                defaultValue={last}
-                helperText="Incorrect entry."
-                variant="outlined"
-              />
-            </div>
-          </form>
-
-          <form className={classes.form}>
-            <div>
-              <TextField
-                onChange={(e) => {handleInputChange (e, 'quote')}}
-                error={! quote}
-                fullWidth
-                id="outlined-multiline-static"
-                label="My Declaration"
-                multiline
-                rows={4}
-                defaultValue={quote}
-                variant="outlined"
-              />
-            </div>
-          </form>
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={handleEdit} variant="outlined" color="primary">
-          Disagree
-        </Button>
-        <Button onClick={handleCloseModal} variant="outlined" color="primary" autoFocus>
-          Agree
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <></>
   )
 
   // return (
