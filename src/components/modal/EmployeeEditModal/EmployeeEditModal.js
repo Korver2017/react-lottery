@@ -25,8 +25,6 @@ const useStyles = makeStyles (theme => ({
 
 function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmployee}) {
 
-  console.log ('target: ', target);
-
   const classes = useStyles ();
 
   const [open, setOpen] = useState (false);
@@ -37,6 +35,17 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
   const [first, setFirst] = useState ('');
   const [last, setLast] = useState ('');
   const [quote, setQuote] = useState ('');
+
+  const [denyUpdate, setDenyUpdate] = useState (false);
+
+  const checkInput = () => {
+    
+    if (! first.trim () || ! last.trim () || ! quote.trim ())
+      setDenyUpdate (true);
+
+    else
+      setDenyUpdate (false);
+  }
 
   const handleCloseModal = () => setOpen (false);
 
@@ -54,27 +63,36 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
     
   }, [triggerModalCount, modalType, target]);
 
+  useEffect (() => {
+    checkInput ();
+  }, [first, last, quote]);
+
   const handleInputChange = (e, column) => {
 
     console.log ('e: ', e.target.value);
     console.log ('column: ', column);
 
-    if (column === 'first')
-      return setFirst (e.target.value);
+    switch (column) {
 
-    if (column === 'last')
-      return setLast (e.target.value);
+      case 'first':
+        return setFirst (e.target.value);
 
-    setQuote (e.target.value);
+      case 'last':
+        return setLast (e.target.value);
+
+      case 'quote':
+        return setQuote (e.target.value);
+    }
   }
   
   // Edit employee data
-  const handleEdit = () => {
+  const handleUpdateEmployee = () => {
 
-    // if (! first.value.trim () || ! last.value.trim () || ! quote.value.trim ())
-    //   return alert ('Sorry, columns may not be empty.');
+    if (denyUpdate)
+      alert ('K')
+      // return;
     
-    // handleEditEmployee ({name: {first: first.value, last: last.value}, quote: quote.value});
+    handleEditEmployee ({name: {first, last,}, quote});
 
     // Close Modal
     handleCloseModal ();
@@ -100,22 +118,22 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
               <div>
                 <TextField
                   onChange={(e) => {handleInputChange (e, 'first')}}
-                  error={! first}
+                  error={! first.trim ()}
                   className={classes.textInput}
                   id="outlined-error-helper-text"
                   label="First Name"
                   defaultValue={first}
-                  helperText={! first ? "Field may not be empty." : ''}
+                  helperText={! first.trim () ? "Field may not be empty." : ''}
                   variant="outlined"
                 />
                 <TextField
                   onChange={(e) => {handleInputChange (e, 'last')}}
                   className={classes.textInput}
-                  error={! last}
+                  error={! last.trim ()}
                   id="outlined-error-helper-text"
                   label="Last Name"
                   defaultValue={last}
-                  helperText={! last ? "Field may not be empty." : ''}
+                  helperText={! last.trim () ? "Field may not be empty." : ''}
                   variant="outlined"
                 />
               </div>
@@ -125,14 +143,14 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
               <div>
                 <TextField
                   onChange={(e) => {handleInputChange (e, 'quote')}}
-                  error={! quote}
+                  error={! quote.trim ()}
                   fullWidth
                   id="outlined-multiline-static"
                   label="My Declaration"
                   multiline
                   rows={4}
                   defaultValue={quote}
-                  helperText={! quote ? "Field may not be empty." : ''}
+                  helperText={! quote.trim () ? "Field may not be empty." : ''}
                   variant="outlined"
                 />
               </div>
@@ -140,11 +158,11 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleEdit} variant="outlined" color="primary">
-            Disagree
+          <Button autoFocus onClick={handleUpdateEmployee} disabled={denyUpdate} variant="outlined" color="primary">
+            Update
           </Button>
           <Button onClick={handleCloseModal} variant="outlined" color="primary" autoFocus>
-            Agree
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
