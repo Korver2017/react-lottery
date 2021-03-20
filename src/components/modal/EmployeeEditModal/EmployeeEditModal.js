@@ -1,6 +1,9 @@
-// React & Component
+/**
+ *
+ * React & Components
+ *
+ */
 import { useState, useEffect } from 'react';
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,11 +11,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+
+/**
+ *
+ * Styles Settings
+ *
+ */
 const useStyles = makeStyles (theme => ({
   form: {
     margin: theme.spacing (1),
@@ -21,156 +28,225 @@ const useStyles = makeStyles (theme => ({
     width: 200,
     margin: theme.spacing (1),
   },
+  buttonGroup: {
+    marginBottom: theme.spacing (2),
+    marginRight: theme.spacing (3),
+  },
+  error: {
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+  },
+  success: {
+    color: theme.palette.success.main,
+    borderColor: theme.palette.success.main,
+  }
 }));
 
-let first, last, quote;
 
-function EmployeeEditModal ({triggerModalCount, modalType, editTarget, handleEditEmployee}) {
+/**
+ *
+ * Employee Edit Modal Component
+ *
+ */
+function EmployeeEditModal ({target, handleEditEmployee}) {
 
+  // Apply styles.
   const classes = useStyles ();
-
-  const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
+  
+  // State of show modal.
+  const [open, setOpen] = useState (false);
 
   // Initialize employee's data to be edited.
-  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
+  const [first, setFirst] = useState ('');
+  const [last, setLast] = useState ('');
+  const [quote, setQuote] = useState ('');
+
+  // State of deny submit.
+  const [denyUpdate, setDenyUpdate] = useState (false);
+
+
+  /**
+   *
+   * Check input columns to confirm submit.
+   *
+   */
+  const checkInput = () => {
+    
+    // Any empty input, then deny submit.
+    if (! first.trim () || ! last.trim () || ! quote.trim ())
+      setDenyUpdate (true);
+
+    else
+      setDenyUpdate (false);
+  }
+
+
+  /**
+   *
+   * Handle Close Modal
+   *
+   */
   const handleCloseModal = () => setOpen (false);
 
-  useEffect (() => {
 
-    // If parent component just initialize, return.
-    if (triggerModalCount <= 0 || modalType !== 'edit')
+  /**
+   *
+   * Initialize Modal Component
+   *
+   */
+  useEffect (() => {
+    
+    // Check target employee's data to show modal.
+    if (Object.keys (target).length <= 0)
       return;
 
     // Set up employee props data, then show lightbox.
-    setInput ({name: {first: editTarget.name.first, last: editTarget.name.last}, quote: editTarget.quote});
+    setFirst (target.name.first);
+    setLast (target.name.last);
+    setQuote (target.quote);
+
+    // Open modal.
     setOpen (true);
     
-  }, [triggerModalCount, modalType, editTarget]);
+  }, [target]);
+
+
+  /**
+   *
+   * Check Input Columns
+   *
+   */
+  useEffect (() => {
+
+    // When columns changed, check input.
+    checkInput ();
+  }, [first, last, quote]);
+
+
+  /**
+   *
+   * Handle Input Change
+   *
+   */
+  const handleInputChange = (e, column) => {
+
+    // Watching column, give it a new value.
+    switch (column) {
+
+      case 'first':
+        return setFirst (e.target.value);
+
+      case 'last':
+        return setLast (e.target.value);
+
+      case 'quote':
+        return setQuote (e.target.value);
+    }
+  }
   
-  // Edit employee data
-  const handleEdit = () => {
+  
+  /**
+   *
+   * Handle Update Employee
+   *
+   */
+  const handleUpdateEmployee = () => {
 
-    console.log ('first: ', first);
-    console.log ('last: ', last);
-    console.log ('quote: ', quote);
-
-    // if (! first.value.trim () || ! last.value.trim () || ! quote.value.trim ())
-    //   return alert ('Sorry, columns may not be empty.');
+    // Before submit, check deny or not.
+    if (denyUpdate)
+      return;
     
-    // handleEditEmployee ({name: {first: first.value, last: last.value}, quote: quote.value});
+    // Submit new values.
+    handleEditEmployee ({name: {first, last,}, quote});
 
-    // Close Modal
+    // Close modal.
     handleCloseModal ();
   }
 
-  return (
-    <Dialog
-      fullScreen={fullScreen}
-      open={open}
-      onClose={handleCloseModal}
-      aria-labelledby="responsive-dialog-title"
-    >
-      
-      <DialogTitle id="responsive-dialog-title">
-        {input.name.first + ' ' + input.name.last}
-      </DialogTitle>
 
-      <DialogContent>
-        <DialogContentText component={'span'}>
-          
-          <form noValidate autoComplete="off">
-            <div>
-              <TextField
-                onChange={e => {
-                  first = e.target.value
-                }}
-                error={first === ''}
-                className={classes.textInput}
-                id="outlined-error-helper-text"
-                label="First Name"
-                defaultValue={input.name.first}
-                helperText="Incorrect entry."
-                variant="outlined"
-              />
-              <TextField
-                onChange={e => last = e.target.value}
-                className={classes.textInput}
-                error
-                id="outlined-error-helper-text"
-                label="Last Name"
-                defaultValue={input.name.last}
-                helperText="Incorrect entry."
-                variant="outlined"
-              />
-            </div>
-          </form>
+  /**
+   *
+   * JSX
+   *
+   */
 
-          <form className={classes.form}>
-            <div>
-              <TextField
-                onChange={e => quote = e.target.value}
-                error
-                fullWidth
-                id="outlined-multiline-static"
-                label="My Declaration"
-                multiline
-                rows={4}
-                defaultValue={input.quote}
-                variant="outlined"
-              />
-            </div>
-          </form>
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={handleEdit} variant="outlined" color="primary">
-          Disagree
-        </Button>
-        <Button onClick={handleCloseModal} variant="outlined" color="primary" autoFocus>
-          Agree
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-
-  // return (
-
-  //   <>
-  //     <Modal show={show} onHide={handleCloseModal}>
+  // Render component after getting target employee's data.
+  if (Object.keys (target).length >= 1)
+    return (
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        onClose={handleCloseModal}
+        aria-labelledby="responsive-dialog-title"
+      >
         
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Edit Employee - {input.name.first} {input.name.last}</Modal.Title>
-  //       </Modal.Header>
+        <DialogTitle id="responsive-dialog-title">
+          {target.name.first + ' ' + target.name.last}
+        </DialogTitle>
 
-  //       <Modal.Body>
+        <DialogContent>
+          <DialogContentText component={'span'}>
+            
+            <form noValidate autoComplete="off">
+              <div>
+                <TextField
+                  onChange={(e) => {handleInputChange (e, 'first')}}
+                  error={! first.trim ()}
+                  className={classes.textInput}
+                  id="outlined-error-helper-text"
+                  label="First Name"
+                  defaultValue={first}
+                  helperText={! first.trim () ? "Field may not be empty." : ''}
+                  variant="outlined"
+                />
+                <TextField
+                  onChange={(e) => {handleInputChange (e, 'last')}}
+                  className={classes.textInput}
+                  error={! last.trim ()}
+                  id="outlined-error-helper-text"
+                  label="Last Name"
+                  defaultValue={last}
+                  helperText={! last.trim () ? "Field may not be empty." : ''}
+                  variant="outlined"
+                />
+              </div>
+            </form>
 
-  //         <Form.Row className="mt-2 mb-4">
+            <form className={classes.form}>
+              <div>
+                <TextField
+                  onChange={(e) => {handleInputChange (e, 'quote')}}
+                  error={! quote.trim ()}
+                  fullWidth
+                  id="outlined-multiline-static"
+                  label="My Declaration"
+                  multiline
+                  rows={4}
+                  defaultValue={quote}
+                  helperText={! quote.trim () ? "Field may not be empty." : ''}
+                  variant="outlined"
+                />
+              </div>
+            </form>
+          </DialogContentText>
+        </DialogContent>
 
-  //           <Form.Control className="first col-5 mr-5" defaultValue={input.name.first} type="text" placeholder="First Name" />
-  //           <Form.Control className="last col-5" defaultValue={input.name.last} type="text" placeholder="Last Name" />
+        <DialogActions className={classes.buttonGroup}>
+          <Button className={classes.success} autoFocus onClick={handleUpdateEmployee} disabled={denyUpdate} variant="outlined">
+            Update
+          </Button>
+          <Button className={classes.error} onClick={handleCloseModal} variant="outlined" autoFocus>
+            Cancel
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
 
-  //         </Form.Row>
-
-  //         <Form.Row>
-  //           <Form.Control className="quote" defaultValue={input.quote} placeholder="My Declaration to Win The Prize!" as="textarea" rows={3} />
-  //         </Form.Row>
-          
-  //       </Modal.Body>
-  //       <Modal.Footer>
-
-  //         <Button variant="warning" onClick={handleCloseModal}>
-  //           Cancel
-  //         </Button>
-  //         <Button variant="success" onClick={handleEdit}>
-  //           Update
-  //         </Button>
-          
-  //       </Modal.Footer>
-  //     </Modal>
-  //   </>
-  // )
+  return (
+    <></>
+  )
 }
 
 export default EmployeeEditModal;

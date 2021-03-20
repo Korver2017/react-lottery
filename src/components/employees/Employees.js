@@ -141,8 +141,8 @@ function Employees({addedEmployee}) {
         }
       </Grid>
 
-      <EmployeeEditModal triggerModalCount={triggerModalCount} modalType={modalType} editTarget={editTarget} handleEditEmployee={handleEditEmployee}></EmployeeEditModal>
-      <EmployeeDeleteModal triggerModalCount={triggerModalCount} modalType={modalType} editTarget={editTarget} handleDeleteEmployee={handleDeleteEmployee}></EmployeeDeleteModal>
+      <EmployeeEditModal triggerModalCount={triggerModalCount} modalType={modalType} target={editTarget} handleEditEmployee={handleEditEmployee}></EmployeeEditModal>
+      <EmployeeDeleteModal triggerModalCount={triggerModalCount} modalType={modalType} target={editTarget} handleDeleteEmployee={handleDeleteEmployee}></EmployeeDeleteModal>
     </div>
   );
 }
