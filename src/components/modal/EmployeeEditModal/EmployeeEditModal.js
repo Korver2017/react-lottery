@@ -48,7 +48,7 @@ const useStyles = makeStyles (theme => ({
  * Employee Edit Modal Component
  *
  */
-function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmployee}) {
+function EmployeeEditModal ({target, handleEditEmployee}) {
 
   // Apply styles.
   const classes = useStyles ();
@@ -97,18 +97,20 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
    *
    */
   useEffect (() => {
-
-    // If parent component just initialize, return.
-    if (triggerModalCount <= 0 || modalType !== 'edit')
+    
+    // Check target employee's data to show modal.
+    if (Object.keys (target).length <= 0)
       return;
 
     // Set up employee props data, then show lightbox.
     setFirst (target.name.first);
     setLast (target.name.last);
     setQuote (target.quote);
+
+    // Open modal.
     setOpen (true);
     
-  }, [triggerModalCount, modalType, target]);
+  }, [target]);
 
 
   /**
