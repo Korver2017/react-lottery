@@ -1,6 +1,9 @@
-// React & Component
+/**
+ *
+ * React & Components
+ *
+ */
 import { useState, useEffect } from 'react';
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -8,11 +11,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-import { makeStyles, useTheme, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-
 import TextField from '@material-ui/core/TextField';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+
+/**
+ *
+ * Styles Settings
+ *
+ */
 const useStyles = makeStyles (theme => ({
   form: {
     margin: theme.spacing (1),
@@ -35,23 +42,39 @@ const useStyles = makeStyles (theme => ({
   }
 }));
 
+
+/**
+ *
+ * Employee Edit Modal Component
+ *
+ */
 function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmployee}) {
 
+  // Apply styles.
   const classes = useStyles ();
-
-  const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
+  
+  // State of show modal.
+  const [open, setOpen] = useState (false);
 
   // Initialize employee's data to be edited.
   const [first, setFirst] = useState ('');
   const [last, setLast] = useState ('');
   const [quote, setQuote] = useState ('');
 
+  // State of deny submit.
   const [denyUpdate, setDenyUpdate] = useState (false);
 
+
+  /**
+   *
+   * Check input columns to confirm submit.
+   *
+   */
   const checkInput = () => {
     
+    // Any empty input, then deny submit.
     if (! first.trim () || ! last.trim () || ! quote.trim ())
       setDenyUpdate (true);
 
@@ -59,8 +82,20 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
       setDenyUpdate (false);
   }
 
+
+  /**
+   *
+   * Handle Close Modal
+   *
+   */
   const handleCloseModal = () => setOpen (false);
 
+
+  /**
+   *
+   * Initialize Modal Component
+   *
+   */
   useEffect (() => {
 
     // If parent component just initialize, return.
@@ -75,12 +110,27 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
     
   }, [triggerModalCount, modalType, target]);
 
+
+  /**
+   *
+   * Check Input Columns
+   *
+   */
   useEffect (() => {
+
+    // When columns changed, check input.
     checkInput ();
   }, [first, last, quote]);
 
+
+  /**
+   *
+   * Handle Input Change
+   *
+   */
   const handleInputChange = (e, column) => {
 
+    // Watching column, give it a new value.
     switch (column) {
 
       case 'first':
@@ -94,18 +144,33 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
     }
   }
   
-  // Edit employee data
+  
+  /**
+   *
+   * Handle Update Employee
+   *
+   */
   const handleUpdateEmployee = () => {
 
+    // Before submit, check deny or not.
     if (denyUpdate)
       return;
     
+    // Submit new values.
     handleEditEmployee ({name: {first, last,}, quote});
 
-    // Close Modal
+    // Close modal.
     handleCloseModal ();
   }
 
+
+  /**
+   *
+   * JSX
+   *
+   */
+
+  // Render component after getting target employee's data.
   if (Object.keys (target).length >= 1)
     return (
       <Dialog
