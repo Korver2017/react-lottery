@@ -8,10 +8,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+
+import { makeStyles, useTheme, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles (theme => ({
   form: {
@@ -21,6 +21,18 @@ const useStyles = makeStyles (theme => ({
     width: 200,
     margin: theme.spacing (1),
   },
+  buttonGroup: {
+    marginBottom: theme.spacing (2),
+    marginRight: theme.spacing (3),
+  },
+  error: {
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+  },
+  success: {
+    color: theme.palette.success.main,
+    borderColor: theme.palette.success.main,
+  }
 }));
 
 function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmployee}) {
@@ -69,9 +81,6 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
 
   const handleInputChange = (e, column) => {
 
-    console.log ('e: ', e.target.value);
-    console.log ('column: ', column);
-
     switch (column) {
 
       case 'first':
@@ -89,8 +98,7 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
   const handleUpdateEmployee = () => {
 
     if (denyUpdate)
-      alert ('K')
-      // return;
+      return;
     
     handleEditEmployee ({name: {first, last,}, quote});
 
@@ -157,11 +165,12 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
             </form>
           </DialogContentText>
         </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleUpdateEmployee} disabled={denyUpdate} variant="outlined" color="primary">
+
+        <DialogActions className={classes.buttonGroup}>
+          <Button className={classes.success} autoFocus onClick={handleUpdateEmployee} disabled={denyUpdate} variant="outlined">
             Update
           </Button>
-          <Button onClick={handleCloseModal} variant="outlined" color="primary" autoFocus>
+          <Button className={classes.error} onClick={handleCloseModal} variant="outlined" autoFocus>
             Cancel
           </Button>
         </DialogActions>
