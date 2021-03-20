@@ -245,43 +245,6 @@ function EmployeeEditModal ({triggerModalCount, modalType, target, handleEditEmp
   return (
     <></>
   )
-
-  // return (
-
-  //   <>
-  //     <Modal show={show} onHide={handleCloseModal}>
-        
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Edit Employee - {input.name.first} {input.name.last}</Modal.Title>
-  //       </Modal.Header>
-
-  //       <Modal.Body>
-
-  //         <Form.Row className="mt-2 mb-4">
-
-  //           <Form.Control className="first col-5 mr-5" defaultValue={input.name.first} type="text" placeholder="First Name" />
-  //           <Form.Control className="last col-5" defaultValue={input.name.last} type="text" placeholder="Last Name" />
-
-  //         </Form.Row>
-
-  //         <Form.Row>
-  //           <Form.Control className="quote" defaultValue={input.quote} placeholder="My Declaration to Win The Prize!" as="textarea" rows={3} />
-  //         </Form.Row>
-          
-  //       </Modal.Body>
-  //       <Modal.Footer>
-
-  //         <Button variant="warning" onClick={handleCloseModal}>
-  //           Cancel
-  //         </Button>
-  //         <Button variant="success" onClick={handleEdit}>
-  //           Update
-  //         </Button>
-          
-  //       </Modal.Footer>
-  //     </Modal>
-  //   </>
-  // )
 }
 
 export default EmployeeEditModal;
