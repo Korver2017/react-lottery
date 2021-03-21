@@ -173,79 +173,78 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
    */
 
   // Render component after getting target employee's data.
-  if (Object.keys (target).length >= 1)
-    return (
-      <Dialog
-        fullScreen={fullScreen}
-        open={open}
-        onClose={handleCloseModal}
-        aria-labelledby="responsive-dialog-title"
-      >
-        
-        <DialogTitle id="responsive-dialog-title">
-          {target.name.first + ' ' + target.name.last}
-        </DialogTitle>
-
-        <DialogContent>
-          <DialogContentText component={'span'}>
-            
-            <form noValidate autoComplete="off">
-              <div>
-                <TextField
-                  onChange={(e) => {handleInputChange (e, 'first')}}
-                  error={! first.trim ()}
-                  className={classes.textInput}
-                  id="outlined-error-helper-text"
-                  label="First Name"
-                  defaultValue={first}
-                  helperText={! first.trim () ? "Field may not be empty." : ''}
-                  variant="outlined"
-                />
-                <TextField
-                  onChange={(e) => {handleInputChange (e, 'last')}}
-                  className={classes.textInput}
-                  error={! last.trim ()}
-                  id="outlined-error-helper-text"
-                  label="Last Name"
-                  defaultValue={last}
-                  helperText={! last.trim () ? "Field may not be empty." : ''}
-                  variant="outlined"
-                />
-              </div>
-            </form>
-
-            <form className={classes.form}>
-              <div>
-                <TextField
-                  onChange={(e) => {handleInputChange (e, 'quote')}}
-                  error={! quote.trim ()}
-                  fullWidth
-                  id="outlined-multiline-static"
-                  label="My Declaration"
-                  multiline
-                  rows={4}
-                  defaultValue={quote}
-                  helperText={! quote.trim () ? "Field may not be empty." : ''}
-                  variant="outlined"
-                />
-              </div>
-            </form>
-          </DialogContentText>
-        </DialogContent>
-
-        <DialogActions className={classes.buttonGroup}>
-          <Button className={classes.success} autoFocus onClick={handleUpdateEmployee} disabled={denyUpdate} variant="outlined">
-            Update
-          </Button>
-          <Button className={classes.error} onClick={handleCloseModal} variant="outlined" autoFocus>
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
-    )
-
+  if (Object.keys (target).length <= 0)
+    return <></>
+    
   return (
-    <></>
+    <Dialog
+      fullScreen={fullScreen}
+      open={open}
+      onClose={handleCloseModal}
+      aria-labelledby="responsive-dialog-title"
+    >
+      
+      <DialogTitle id="responsive-dialog-title">
+        {target.name.first + ' ' + target.name.last}
+      </DialogTitle>
+
+      <DialogContent>
+        <DialogContentText component={'span'}>
+          
+          <form noValidate autoComplete="off">
+            <div>
+              <TextField
+                onChange={(e) => {handleInputChange (e, 'first')}}
+                error={! first.trim ()}
+                className={classes.textInput}
+                id="outlined-error-helper-text"
+                label="First Name"
+                defaultValue={first}
+                helperText={! first.trim () ? "Field may not be empty." : ''}
+                variant="outlined"
+              />
+              <TextField
+                onChange={(e) => {handleInputChange (e, 'last')}}
+                className={classes.textInput}
+                error={! last.trim ()}
+                id="outlined-error-helper-text"
+                label="Last Name"
+                defaultValue={last}
+                helperText={! last.trim () ? "Field may not be empty." : ''}
+                variant="outlined"
+              />
+            </div>
+          </form>
+
+          <form className={classes.form}>
+            <div>
+              <TextField
+                onChange={(e) => {handleInputChange (e, 'quote')}}
+                error={! quote.trim ()}
+                fullWidth
+                id="outlined-multiline-static"
+                label="My Declaration"
+                multiline
+                rows={4}
+                defaultValue={quote}
+                helperText={! quote.trim () ? "Field may not be empty." : ''}
+                variant="outlined"
+              />
+            </div>
+          </form>
+        </DialogContentText>
+      </DialogContent>
+
+      <DialogActions className={classes.buttonGroup}>
+        <Button className={classes.success} autoFocus onClick={handleUpdateEmployee} disabled={denyUpdate} variant="outlined">
+          Update
+        </Button>
+        
+        <Button className={classes.error} onClick={handleCloseModal} variant="outlined" autoFocus>
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }
 
