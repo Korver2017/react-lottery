@@ -45,9 +45,9 @@ function Employees ({addedEmployee}) {
   const [editEmployee, setEditEmployee] = useState({});
 
   // Show modal & pass selected employee data to modal.
-  const handleEditModalData = (dataset, i) => {
+  const handleEditModalData = (employee, i) => {
 
-    setEditEmployee ({...dataset.employee, order: i});
+    setEditEmployee ({...employee, order: i});
   };
 
   // Update selected employee's data.
