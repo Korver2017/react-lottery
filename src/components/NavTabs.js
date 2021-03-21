@@ -27,8 +27,8 @@ function NavTabs () {
         textColor="primary"
         centered
       >
-        <Tab label="Item One" />
-        <Tab label="Item Two" />
+        <Tab label="Employees" />
+        <Tab label="Prizes" />
         <Tab label="Item Three" />
       </Tabs>
     </Paper>
