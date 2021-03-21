@@ -22,7 +22,7 @@ function App () {
 
       <AddEmployeeModal showModal={showModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
 
-      <Employees addedEmployee={addedEmployee}  />
+      {/* <Employees addedEmployee={addedEmployee}  /> */}
     </div>
   );
 }

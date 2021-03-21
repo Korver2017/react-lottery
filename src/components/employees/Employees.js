@@ -99,14 +99,14 @@ function Employees ({addedEmployee}) {
       });
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (Object.keys(addedEmployee).length <= 0) 
-      return;
+  //   if (Object.keys(addedEmployee).length <= 0) 
+  //     return;
 
-    setEmployees ([...employees, addedEmployee]);
+  //   setEmployees ([...employees, addedEmployee]);
 
-  }, [addedEmployee]);
+  // }, [addedEmployee]);
 
   const classes = useStyles ();
   
