@@ -37,25 +37,44 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
-  // Initialize employee's data to be edited.
-  // const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
-  // const handleCloseModal = () => setOpen (false);
+  // Initialize employee's data to be added.
+  const [first, setFirst] = useState ('');
+  const [last, setLast] = useState ('');
+  const [quote, setQuote] = useState ('');
   
-  let firstInput, lastInput, quoteInput;
+  let inputFirst, lastInput, quoteInput;
 
   const handleUpdateEmployee = () => {
-
-    const first = firstInput.value;
-    const last = lastInput.value;
-    const quote = quoteInput.value;
     
-    // if (!first || !last || !quote)
-    //   return alert('Sorry, columns may not be empty.');
+    // if (! first || ! last || ! quote)
+    //   return alert ('Sorry, columns may not be empty.');
 
     handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
 
-    // Close modal
+    // // Close modal
     handleToggleModal ();
+  }
+
+
+  /**
+   *
+   * Handle Input Change
+   *
+   */
+  const handleInputChange = (e, column) => {
+
+    // Watching column, give it a new value.
+    switch (column) {
+
+      case 'first':
+        return setFirst (e.target.value);
+
+      case 'last':
+        return setLast (e.target.value);
+
+      case 'quote':
+        return setQuote (e.target.value);
+    }
   }
 
   return (
@@ -76,22 +95,20 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
           <form noValidate autoComplete="off">
             <div>
               <TextField
-                ref={node => firstInput = node}
+                onChange={(e) => {handleInputChange (e, 'first')}}
                 error
                 className={classes.textInput}
                 id="outlined-error-helper-text"
                 label="First Name"
-                defaultValue="QWER"
                 helperText="Incorrect entry."
                 variant="outlined"
               />
               <TextField
-                ref={node => lastInput = node}
+                onChange={(e) => {handleInputChange (e, 'last')}}
                 className={classes.textInput}
                 error
                 id="outlined-error-helper-text"
                 label="Last Name"
-                defaultValue="QWER"
                 helperText="Incorrect entry."
                 variant="outlined"
               />
@@ -101,14 +118,13 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
           <form className={classes.form}>
             <div>
               <TextField
-                ref={node => quoteInput = node}
+                onChange={(e) => {handleInputChange (e, 'quote')}}
                 error
                 fullWidth
                 id="outlined-multiline-static"
                 label="My Declaration"
                 multiline
                 rows={4}
-                defaultValue="QWER"
                 variant="outlined"
               />
             </div>
