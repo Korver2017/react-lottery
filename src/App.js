@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './App.css';
 import Employees from './components/employees/Employees';
 import AddEmployeeModal from './components/modal/AddEmployeeModal';
+import NavTabs from './components/NavTabs';
 
 function App () {
 
@@ -14,6 +15,8 @@ function App () {
   
   return (
     <div className="App">
+
+      <NavTabs />
 
       <div onClick={handleToggleModal} className="plus fas fa-plus-circle" />
 
