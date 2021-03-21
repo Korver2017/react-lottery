@@ -38,22 +38,24 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
   // Initialize employee's data to be edited.
-  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
+  // const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
   const handleCloseModal = () => setOpen (false);
+  
+  let firstInput, lastInput, quoteInput;
 
-  const handleAdd = () => {
+  const handleUpdateEmployee = () => {
 
-    // const first = document.querySelector('.first').value;
-    // const last = document.querySelector('.last').value;
-    // const quote = document.querySelector('.quote').value;
+    const first = firstInput.value;
+    const last = lastInput.value;
+    const quote = quoteInput.value;
     
     // if (!first || !last || !quote)
     //   return alert('Sorry, columns may not be empty.');
 
-    // handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
+    handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
 
     // Close modal
-    handleTriggerModal ();
+    handleCloseModal ();
   }
 
   return (
@@ -74,6 +76,7 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
           <form noValidate autoComplete="off">
             <div>
               <TextField
+                ref={node => firstInput = node}
                 error
                 className={classes.textInput}
                 id="outlined-error-helper-text"
@@ -83,6 +86,7 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
                 variant="outlined"
               />
               <TextField
+                ref={node => lastInput = node}
                 className={classes.textInput}
                 error
                 id="outlined-error-helper-text"
@@ -97,6 +101,7 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
           <form className={classes.form}>
             <div>
               <TextField
+                ref={node => quoteInput = node}
                 error
                 fullWidth
                 id="outlined-multiline-static"
@@ -110,12 +115,14 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
           </form>
         </DialogContentText>
       </DialogContent>
+
       <DialogActions>
-        <Button onClick={handleTriggerModal} variant="outlined" color="primary">
-          Disagree
+        <Button onClick={handleUpdateEmployee} variant="outlined" color="primary">
+          Add
         </Button>
-        <Button onClick={handleTriggerModal} variant="outlined" color="primary">
-          Agree
+
+        <Button onClick={handleCloseModal} variant="outlined" color="primary">
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>
