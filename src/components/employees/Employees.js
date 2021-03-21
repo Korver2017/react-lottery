@@ -39,27 +39,21 @@ const useStyles = makeStyles (theme => ({
   }
 }));
 
-function Employees({addedEmployee}) {
+function Employees ({addedEmployee}) {
 
   const [employees, setEmployees] = useState([]);
-  const [triggerModalCount, setTriggerModalCount] = useState(0);
-  const [modalType, setModalType] = useState(null);
-  const [editTarget, setEditTarget] = useState({});
+  const [editEmployee, setEditEmployee] = useState({});
 
   // Show modal & pass selected employee data to modal.
-  const handleEditModalData = (dataset, i) => {
+  const handleEditModalData = (employee, i) => {
 
-    setEditTarget ({...dataset.employee, order: i});
-
-    // Trigger direct type of children show or hide modal by update trigger count.
-    setTriggerModalCount(triggerModalCount + 1);
-    setModalType(dataset.type);
+    setEditEmployee ({...employee, order: i});
   };
 
   // Update selected employee's data.
   const handleEditEmployee = (editedEmployee) => {
 
-    const pos = editTarget.order;
+    const pos = editEmployee.order;
 
     setEmployees(prevEmployees => {
 
@@ -74,7 +68,7 @@ function Employees({addedEmployee}) {
   // Delete selected employee's data.
   const handleDeleteEmployee = () => {
 
-    const pos = editTarget.order;
+    const pos = editEmployee.order;
 
     setEmployees(prevEmployees => {
 
@@ -127,11 +121,11 @@ function Employees({addedEmployee}) {
                 </CardContent>
 
                 <Box className={classes.icons}>
-                  <IconButton onClick={() => handleEditModalData ({employee, type: 'edit'}, i)}>
+                  <IconButton onClick={() => handleEditModalData (employee, i)}>
                     <CreateRoundedIcon />
                   </IconButton>
 
-                  <IconButton onClick={() => handleEditModalData ({employee, type: 'delete'}, i)}>
+                  <IconButton onClick={() => handleEditModalData (employee, i)}>
                     <DeleteForeverRoundedIcon />
                   </IconButton>
                 </Box>
@@ -141,8 +135,9 @@ function Employees({addedEmployee}) {
         }
       </Grid>
 
-      <EmployeeEditModal triggerModalCount={triggerModalCount} modalType={modalType} target={editTarget} handleEditEmployee={handleEditEmployee}></EmployeeEditModal>
-      <EmployeeDeleteModal triggerModalCount={triggerModalCount} modalType={modalType} target={editTarget} handleDeleteEmployee={handleDeleteEmployee}></EmployeeDeleteModal>
+      <EmployeeEditModal target={editEmployee} handleEditEmployee={handleEditEmployee} />
+
+      <EmployeeDeleteModal target={editEmployee} handleDeleteEmployee={handleDeleteEmployee} />
     </div>
   );
 }
