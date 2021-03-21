@@ -1,12 +1,17 @@
-// React & Component
-import { useState, useEffect } from 'react';
-
-// avaScript Plugins
+/**
+ *
+ * JavaScript Plugin
+ *
+ */
 import { v4 as uuidv4 } from 'uuid';
 
-// CSS Framework
-// import { Button, Modal, Form } from 'react-bootstrap';
 
+/**
+ *
+ * React & Components
+ *
+ */
+import { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,11 +19,15 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
+
+/**
+ *
+ * Styles Settings
+ *
+ */
 const useStyles = makeStyles (theme => ({
   form: {
     margin: theme.spacing (1),
@@ -33,7 +42,6 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
 
   const classes = useStyles ();
 
-  // const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
@@ -83,21 +91,16 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
     handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
 
     handleCloseModal ();
-    
-    // setWatchInput (false);
-    // setDenyUpdate (true);
-    // // // Close modal
-    // handleToggleModal ();
   }
 
 
   const handleCloseModal = () => {
 
-    setWatchInput (false);
-    setDenyUpdate (true);
     setFirst ('');
     setLast ('');
     setQuote ('');
+    setWatchInput (false);
+    setDenyUpdate (true);
 
     handleToggleModal ();
   }
@@ -133,7 +136,6 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
     >
       
       <DialogTitle id="responsive-dialog-title">
-        {/* {input.name.first + ' ' + input.name.last} */}
       </DialogTitle>
 
       <DialogContent>
@@ -191,42 +193,6 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
       </DialogActions>
     </Dialog>
   )
-
-  // return (
-  //   <>
-  //     <Modal show={showModal} onHide={handleTriggerModal}>
-
-  //       <Modal.Header closeButton>
-  //         <Modal.Title>Add a Employee</Modal.Title>
-  //       </Modal.Header>
-
-  //       <Modal.Body>
-
-  //         <Form.Row className="mt-2 mb-4">
-
-  //           <Form.Control className="first col-5 mr-5" type="text" placeholder="First Name" />
-  //           <Form.Control className="last col-5" type="text" placeholder="Last Name" />
-
-  //         </Form.Row>
-
-  //         <Form.Row>
-  //           <Form.Control className="quote" placeholder="Declaration to Win The Prize!" as="textarea" rows={3} />
-  //         </Form.Row>
-          
-  //       </Modal.Body>
-  //       <Modal.Footer>
-
-  //         <Button variant="warning" onClick={handleTriggerModal}>
-  //           Cancel
-  //         </Button>
-  //         <Button variant="success" onClick={handleAdd}>
-  //           Create
-  //         </Button>
-
-  //       </Modal.Footer>
-  //     </Modal>
-  //   </>
-  // )
 };
 
 export default EmployeeAddModal;
