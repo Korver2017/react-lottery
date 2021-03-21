@@ -55,7 +55,7 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
   
-  // State of show modal.
+  // State of open modal.
   const [open, setOpen] = useState (false);
 
   // Initialize employee's data to be edited.
@@ -69,17 +69,17 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
 
   /**
    *
-   * Check input columns to confirm submit.
+   * Check input columns to confirm submit
    *
    */
   const checkInput = () => {
     
-    // Any empty input, then deny submit.
+    // Any empty input, deny submit.
     if (! first.trim () || ! last.trim () || ! quote.trim ())
-      setDenyUpdate (true);
+      return setDenyUpdate (true);
 
     else
-      setDenyUpdate (false);
+      return setDenyUpdate (false);
   }
 
 

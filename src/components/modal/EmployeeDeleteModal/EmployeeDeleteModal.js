@@ -1,9 +1,10 @@
-// React & Component
+/**
+ *
+ * React & Components
+ *
+ */
 import { useState, useEffect } from 'react';
-
-// CSS Framework
-// import { Button, Modal, Form } from 'react-bootstrap';
-
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,11 +12,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 
+/**
+ *
+ * Styles Settings
+ *
+ */
 const useStyles = makeStyles (theme => ({
   form: {
     margin: theme.spacing (1),
@@ -24,39 +28,85 @@ const useStyles = makeStyles (theme => ({
     width: 200,
     margin: theme.spacing (1),
   },
+  buttonGroup: {
+    marginBottom: theme.spacing (2),
+    marginRight: theme.spacing (3),
+  },
+  error: {
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+  },
+  warning: {
+    color: theme.palette.warning.main,
+    borderColor: theme.palette.warning.main,
+  }
 }));
 
-function EmployeeDeleteModal ({triggerModalCount, modalType, editTarget, handleDeleteEmployee}) {
 
+/**
+ *
+ * Employee Delete Modal Component
+ *
+ */
+function EmployeeDeleteModal ({target, handleDeleteEmployee}) {
+
+  // Apply styles.
   const classes = useStyles ();
-
-  const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
+  
+  // State of open modal.
+  const [open, setOpen] = useState (false);
 
-  // Initialize employee's data to be edited.
-  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
+
+  /**
+   *
+   * Handle Close Modal
+   *
+   */
   const handleCloseModal = () => setOpen (false);
 
-  // Delete employee data
-  const handleDelete = () => {
+  
+  /**
+   *
+   * Handle Update Employee
+   *
+   */
+  const handleUpdateEmployee = () => {
 
+    // Submit to delete employee.
     handleDeleteEmployee ();
 
-    // Close Modal
+    // Close modal.
     handleCloseModal ();
   };
 
-  useEffect (() => {
 
-    // If parent component just initialize, return.
-    if (triggerModalCount <= 0 || modalType !== 'delete')
+  /**
+   *
+   * Initialize Modal Component
+   *
+   */
+  useEffect (() => {
+    
+    // Check target employee's data to show modal.
+    if (Object.keys (target).length <= 0)
       return;
 
-    // Set up employee props data, then show lightbox.
-    setInput ({name: {first: editTarget.name.first, last: editTarget.name.last}});
+    // Open modal.
     setOpen (true);
-  }, [triggerModalCount, modalType, editTarget]);
+  }, [target]);
+
+  
+  /**
+   *
+   * JSX
+   *
+   */
+
+  // Render component after getting target employee's data.
+  if (Object.keys (target).length <= 0)
+    return <></>
 
   return (
     <Dialog
@@ -66,58 +116,22 @@ function EmployeeDeleteModal ({triggerModalCount, modalType, editTarget, handleD
       aria-labelledby="responsive-dialog-title"
     >
       
-      <DialogTitle id="responsive-dialog-title">
-        {input.name.first + ' ' + input.name.last}
+      <DialogTitle className={classes.error} id="responsive-dialog-title">
+        <Box component={'span'}>Delete</Box> {target.name.first + ' ' + target.name.last}?
       </DialogTitle>
 
       <DialogContent>
-        <DialogContentText component={'span'}>
-          
-          <form noValidate autoComplete="off">
-            <div>
-              <TextField
-                error
-                className={classes.textInput}
-                id="outlined-error-helper-text"
-                label="First Name"
-                defaultValue={input.name.first}
-                helperText="Incorrect entry."
-                variant="outlined"
-              />
-              <TextField
-                className={classes.textInput}
-                error
-                id="outlined-error-helper-text"
-                label="Last Name"
-                defaultValue={input.name.last}
-                helperText="Incorrect entry."
-                variant="outlined"
-              />
-            </div>
-          </form>
-
-          <form className={classes.form}>
-            <div>
-              <TextField
-                error
-                fullWidth
-                id="outlined-multiline-static"
-                label="My Declaration"
-                multiline
-                rows={4}
-                defaultValue={input.quote}
-                variant="outlined"
-              />
-            </div>
-          </form>
+        <DialogContentText>
+          Are you sure you want to delete {target.name.first + ' ' + target.name.last}'s employee data?
         </DialogContentText>
       </DialogContent>
-      <DialogActions>
-        <Button autoFocus onClick={handleDelete} variant="outlined" color="primary">
-          Disagree
+
+      <DialogActions className={classes.buttonGroup}>
+        <Button className={classes.error} autoFocus onClick={handleUpdateEmployee} variant="outlined">
+          Delete
         </Button>
-        <Button onClick={handleDelete} variant="outlined" color="primary" autoFocus>
-          Agree
+        <Button color="default" onClick={handleCloseModal} variant="outlined" autoFocus>
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>
