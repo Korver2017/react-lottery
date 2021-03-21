@@ -36,6 +36,18 @@ const useStyles = makeStyles (theme => ({
     width: 200,
     margin: theme.spacing (1),
   },
+  buttonGroup: {
+    marginBottom: theme.spacing (2),
+    marginRight: theme.spacing (3),
+  },
+  error: {
+    color: theme.palette.error.main,
+    borderColor: theme.palette.error.main,
+  },
+  success: {
+    color: theme.palette.success.main,
+    borderColor: theme.palette.success.main,
+  }
 }));
 
 
@@ -214,12 +226,12 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
         </DialogContentText>
       </DialogContent>
 
-      <DialogActions>
-        <Button onClick={handleUpdateEmployee} variant="outlined" color="primary">
+      <DialogActions className={classes.buttonGroup}>
+        <Button className={classes.success} onClick={handleUpdateEmployee} variant="outlined" color="primary">
           Add
         </Button>
 
-        <Button onClick={handleCloseModal} variant="outlined" color="primary">
+        <Button className={classes.error} onClick={handleCloseModal} variant="outlined" color="primary">
           Cancel
         </Button>
       </DialogActions>
