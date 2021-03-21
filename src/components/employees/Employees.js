@@ -42,18 +42,12 @@ const useStyles = makeStyles (theme => ({
 function Employees({addedEmployee}) {
 
   const [employees, setEmployees] = useState([]);
-  const [triggerModalCount, setTriggerModalCount] = useState(0);
-  const [modalType, setModalType] = useState(null);
   const [editTarget, setEditTarget] = useState({});
 
   // Show modal & pass selected employee data to modal.
   const handleEditModalData = (dataset, i) => {
 
     setEditTarget ({...dataset.employee, order: i});
-
-    // Trigger direct type of children show or hide modal by update trigger count.
-    setTriggerModalCount(triggerModalCount + 1);
-    setModalType(dataset.type);
   };
 
   // Update selected employee's data.
@@ -141,8 +135,9 @@ function Employees({addedEmployee}) {
         }
       </Grid>
 
-      <EmployeeEditModal triggerModalCount={triggerModalCount} modalType={modalType} target={editTarget} handleEditEmployee={handleEditEmployee}></EmployeeEditModal>
-      <EmployeeDeleteModal triggerModalCount={triggerModalCount} modalType={modalType} target={editTarget} handleDeleteEmployee={handleDeleteEmployee}></EmployeeDeleteModal>
+      <EmployeeEditModal target={editTarget} handleEditEmployee={handleEditEmployee} />
+
+      <EmployeeDeleteModal target={editTarget} handleDeleteEmployee={handleDeleteEmployee} />
     </div>
   );
 }
