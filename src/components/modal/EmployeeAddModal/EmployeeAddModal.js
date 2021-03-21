@@ -38,10 +38,16 @@ const useStyles = makeStyles (theme => ({
   },
 }));
 
+
+/**
+ *
+ * Employee Add Modal
+ *
+ */
 function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
 
+  // Apply styles.
   const classes = useStyles ();
-
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
@@ -50,6 +56,7 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
   const [last, setLast] = useState ('');
   const [quote, setQuote] = useState ('');
 
+  // State of watching input columns.
   const [watchInput, setWatchInput] = useState (false);
 
   // State of deny submit.
@@ -83,25 +90,43 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
     checkInput ();
   }, [first, last, quote]);
 
+
+  /**
+   *
+   * Handle Update Employee
+   *
+   */
   const handleUpdateEmployee = () => {
 
+    // Trigger watching input after deny submit.
     if (denyUpdate)
       return setWatchInput (true);
 
+    // Add new employee.
     handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
 
+    // Close modal.
     handleCloseModal ();
   }
 
 
+  /**
+   *
+   * Reset Data When Closing Modal
+   *
+   */
   const handleCloseModal = () => {
 
+    // Reset inputs.
     setFirst ('');
     setLast ('');
     setQuote ('');
+
+    // Reset watcher & deny state.
     setWatchInput (false);
     setDenyUpdate (true);
 
+    // Close modal.
     handleToggleModal ();
   }
 
@@ -127,6 +152,12 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
     }
   }
 
+
+  /**
+   *
+   * JSX
+   *
+   */
   return (
     <Dialog
       fullScreen={fullScreen}
@@ -136,6 +167,7 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
     >
       
       <DialogTitle id="responsive-dialog-title">
+        Add New Employee
       </DialogTitle>
 
       <DialogContent>
