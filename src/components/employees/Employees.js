@@ -39,21 +39,21 @@ const useStyles = makeStyles (theme => ({
   }
 }));
 
-function Employees({addedEmployee}) {
+function Employees ({addedEmployee}) {
 
   const [employees, setEmployees] = useState([]);
-  const [editTarget, setEditTarget] = useState({});
+  const [editEmployee, setEditEmployee] = useState({});
 
   // Show modal & pass selected employee data to modal.
   const handleEditModalData = (dataset, i) => {
 
-    setEditTarget ({...dataset.employee, order: i});
+    setEditEmployee ({...dataset.employee, order: i});
   };
 
   // Update selected employee's data.
   const handleEditEmployee = (editedEmployee) => {
 
-    const pos = editTarget.order;
+    const pos = editEmployee.order;
 
     setEmployees(prevEmployees => {
 
@@ -68,7 +68,7 @@ function Employees({addedEmployee}) {
   // Delete selected employee's data.
   const handleDeleteEmployee = () => {
 
-    const pos = editTarget.order;
+    const pos = editEmployee.order;
 
     setEmployees(prevEmployees => {
 
@@ -121,11 +121,11 @@ function Employees({addedEmployee}) {
                 </CardContent>
 
                 <Box className={classes.icons}>
-                  <IconButton onClick={() => handleEditModalData ({employee, type: 'edit'}, i)}>
+                  <IconButton onClick={() => handleEditModalData (employee, i)}>
                     <CreateRoundedIcon />
                   </IconButton>
 
-                  <IconButton onClick={() => handleEditModalData ({employee, type: 'delete'}, i)}>
+                  <IconButton onClick={() => handleEditModalData (employee, i)}>
                     <DeleteForeverRoundedIcon />
                   </IconButton>
                 </Box>
@@ -135,9 +135,9 @@ function Employees({addedEmployee}) {
         }
       </Grid>
 
-      <EmployeeEditModal target={editTarget} handleEditEmployee={handleEditEmployee} />
+      <EmployeeEditModal target={editEmployee} handleEditEmployee={handleEditEmployee} />
 
-      <EmployeeDeleteModal target={editTarget} handleDeleteEmployee={handleDeleteEmployee} />
+      <EmployeeDeleteModal target={editEmployee} handleDeleteEmployee={handleDeleteEmployee} />
     </div>
   );
 }
