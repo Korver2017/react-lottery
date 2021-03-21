@@ -55,7 +55,7 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
   
-  // State of show modal.
+  // State of open modal.
   const [open, setOpen] = useState (false);
 
   // Initialize employee's data to be edited.
@@ -69,7 +69,7 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
 
   /**
    *
-   * Check input columns to confirm submit.
+   * Check input columns to confirm submit
    *
    */
   const checkInput = () => {

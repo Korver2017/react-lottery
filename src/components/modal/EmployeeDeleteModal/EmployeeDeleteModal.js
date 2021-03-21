@@ -1,9 +1,9 @@
-// React & Component
+/**
+ *
+ * React & Components
+ *
+ */
 import { useState, useEffect } from 'react';
-
-// CSS Framework
-// import { Button, Modal, Form } from 'react-bootstrap';
-
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -12,11 +12,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 
+/**
+ *
+ * Styles Settings
+ *
+ */
 const useStyles = makeStyles (theme => ({
   form: {
     margin: theme.spacing (1),
@@ -39,39 +42,69 @@ const useStyles = makeStyles (theme => ({
   }
 }));
 
+
+/**
+ *
+ * Employee Delete Modal Component
+ *
+ */
 function EmployeeDeleteModal ({target, handleDeleteEmployee}) {
 
+  // Apply styles.
   const classes = useStyles ();
-
-  const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
+  
+  // State of open modal.
+  const [open, setOpen] = useState (false);
 
-  // Initialize employee's data to be edited.
-  const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
 
+  /**
+   *
+   * Handle Close Modal
+   *
+   */
   const handleCloseModal = () => setOpen (false);
 
-  // Delete employee data
+  
+  /**
+   *
+   * Handle Update Employee
+   *
+   */
   const handleUpdateEmployee = () => {
 
+    // Submit to delete employee.
     handleDeleteEmployee ();
 
-    // Close Modal
+    // Close modal.
     handleCloseModal ();
   };
 
+
+  /**
+   *
+   * Initialize Modal Component
+   *
+   */
   useEffect (() => {
     
     // Check target employee's data to show modal.
     if (Object.keys (target).length <= 0)
       return;
 
-    // Set up employee props data, then show lightbox.
-    // setInput ({name: {first: target.name.first, last: target.name.last}});
+    // Open modal.
     setOpen (true);
   }, [target]);
 
+  
+  /**
+   *
+   * JSX
+   *
+   */
+
+  // Render component after getting target employee's data.
   if (Object.keys (target).length <= 0)
     return <></>
 
