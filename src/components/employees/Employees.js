@@ -43,12 +43,17 @@ function Employees ({addedEmployee}) {
 
   const [employees, setEmployees] = useState([]);
   const [editEmployee, setEditEmployee] = useState({});
+  const [deleteEmployee, setDeleteEmployee] = useState({});
 
   // Show modal & pass selected employee data to modal.
   const handleEditModalData = (employee, i) => {
 
     setEditEmployee ({...employee, order: i});
   };
+
+  const handleDeleteModalData = (employee, i) => {
+    setDeleteEmployee ({...employee, order: i});
+  }
 
   // Update selected employee's data.
   const handleEditEmployee = (editedEmployee) => {
@@ -125,7 +130,7 @@ function Employees ({addedEmployee}) {
                     <CreateRoundedIcon />
                   </IconButton>
 
-                  <IconButton onClick={() => handleEditModalData (employee, i)}>
+                  <IconButton onClick={() => handleDeleteModalData (employee, i)}>
                     <DeleteForeverRoundedIcon />
                   </IconButton>
                 </Box>
@@ -137,7 +142,7 @@ function Employees ({addedEmployee}) {
 
       <EmployeeEditModal target={editEmployee} handleEditEmployee={handleEditEmployee} />
 
-      <EmployeeDeleteModal target={editEmployee} handleDeleteEmployee={handleDeleteEmployee} />
+      <EmployeeDeleteModal target={deleteEmployee} handleDeleteEmployee={handleDeleteEmployee} />
     </div>
   );
 }
