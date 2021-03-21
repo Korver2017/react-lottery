@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -17,6 +12,11 @@ const useStyles = makeStyles({
   root: {
     flexGrow: 1,
   },
+  link: {
+    '& a': {
+      textDecoration: 'none',
+    }
+  }
 });
 
 function NavTabs () {
@@ -31,6 +31,7 @@ function NavTabs () {
     <Router>
       <Paper className={classes.root}>
         <Tabs
+          className={classes.link}
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
