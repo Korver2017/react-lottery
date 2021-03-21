@@ -48,7 +48,7 @@ const useStyles = makeStyles (theme => ({
  * Employee Edit Modal Component
  *
  */
-function EmployeeEditModal ({target, handleEditEmployee}) {
+function EditEmployeeModal ({target, handleEditEmployee}) {
 
   // Apply styles.
   const classes = useStyles ();
@@ -248,4 +248,4 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
   )
 }
 
-export default EmployeeEditModal;
+export default EditEmployeeModal;

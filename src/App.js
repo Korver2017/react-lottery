@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import './App.css';
 import Employees from './components/employees/Employees';
-import EmployeeAddModal from './components/modal/EmployeeAddModal/EmployeeAddModal';
+import AddEmployeeModal from './components/modal/AddEmployeeModal';
 
 function App () {
 
@@ -17,7 +17,7 @@ function App () {
 
       <div onClick={handleToggleModal} className="plus fas fa-plus-circle" />
 
-      <EmployeeAddModal showModal={showModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
+      <AddEmployeeModal showModal={showModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
 
       <Employees addedEmployee={addedEmployee}  />
     </div>

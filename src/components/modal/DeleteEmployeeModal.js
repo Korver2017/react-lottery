@@ -48,7 +48,7 @@ const useStyles = makeStyles (theme => ({
  * Employee Delete Modal Component
  *
  */
-function EmployeeDeleteModal ({target, handleDeleteEmployee}) {
+function DeleteEmployeeModal ({target, handleDeleteEmployee}) {
 
   // Apply styles.
   const classes = useStyles ();
@@ -138,4 +138,4 @@ function EmployeeDeleteModal ({target, handleDeleteEmployee}) {
   )
 };
 
-export default EmployeeDeleteModal;
+export default DeleteEmployeeModal;

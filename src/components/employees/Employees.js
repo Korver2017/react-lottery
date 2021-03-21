@@ -1,8 +1,8 @@
 // React & Component
 import { useState, useEffect } from 'react';
 import './Employees.css';
-import EmployeeEditModal from '../modal/EmployeeEditModal/EmployeeEditModal';
-import EmployeeDeleteModal from '../modal/EmployeeDeleteModal/EmployeeDeleteModal';
+import EditEmployeeModal from '../modal/EditEmployeeModal';
+import DeleteEmployeeModal from '../modal/DeleteEmployeeModal';
 
 // JavaScript Plugin
 import $api from 'axios';
@@ -140,9 +140,9 @@ function Employees ({addedEmployee}) {
         }
       </Grid>
 
-      <EmployeeEditModal target={editEmployee} handleEditEmployee={handleEditEmployee} />
+      <EditEmployeeModal target={editEmployee} handleEditEmployee={handleEditEmployee} />
 
-      <EmployeeDeleteModal target={deleteEmployee} handleDeleteEmployee={handleDeleteEmployee} />
+      <DeleteEmployeeModal target={deleteEmployee} handleDeleteEmployee={handleDeleteEmployee} />
     </div>
   );
 }
