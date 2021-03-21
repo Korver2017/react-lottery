@@ -74,12 +74,12 @@ function EmployeeEditModal ({target, handleEditEmployee}) {
    */
   const checkInput = () => {
     
-    // Any empty input, then deny submit.
+    // Any empty input, deny submit.
     if (! first.trim () || ! last.trim () || ! quote.trim ())
-      setDenyUpdate (true);
+      return setDenyUpdate (true);
 
     else
-      setDenyUpdate (false);
+      return setDenyUpdate (false);
   }
 
 

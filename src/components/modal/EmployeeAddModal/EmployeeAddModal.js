@@ -41,17 +41,64 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
   const [first, setFirst] = useState ('');
   const [last, setLast] = useState ('');
   const [quote, setQuote] = useState ('');
-  
-  let inputFirst, lastInput, quoteInput;
+
+  const [watchInput, setWatchInput] = useState (false);
+
+  // State of deny submit.
+  const [denyUpdate, setDenyUpdate] = useState (true);
+
+
+  /**
+   *
+   * Check input columns to confirm submit
+   *
+   */
+  const checkInput = () => {
+    
+    // Any empty input, deny submit.
+    if (! first.trim () || ! last.trim () || ! quote.trim ())
+      return setDenyUpdate (true);
+
+    else
+      return setDenyUpdate (false);
+  }
+
+
+  /**
+   *
+   * Check Input Columns
+   *
+   */
+  useEffect (() => {
+
+    // When columns changed, check input.
+    checkInput ();
+  }, [first, last, quote]);
 
   const handleUpdateEmployee = () => {
-    
-    // if (! first || ! last || ! quote)
-    //   return alert ('Sorry, columns may not be empty.');
+
+    if (denyUpdate)
+      return setWatchInput (true);
 
     handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
 
-    // // Close modal
+    handleCloseModal ();
+    
+    // setWatchInput (false);
+    // setDenyUpdate (true);
+    // // // Close modal
+    // handleToggleModal ();
+  }
+
+
+  const handleCloseModal = () => {
+
+    setWatchInput (false);
+    setDenyUpdate (true);
+    setFirst ('');
+    setLast ('');
+    setQuote ('');
+
     handleToggleModal ();
   }
 
@@ -81,7 +128,7 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
     <Dialog
       fullScreen={fullScreen}
       open={showModal}
-      onClose={handleToggleModal}
+      onClose={handleCloseModal}
       aria-labelledby="responsive-dialog-title"
     >
       
@@ -96,20 +143,20 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
             <div>
               <TextField
                 onChange={(e) => {handleInputChange (e, 'first')}}
-                error
+                error={watchInput && ! first.trim ()}
                 className={classes.textInput}
                 id="outlined-error-helper-text"
                 label="First Name"
-                helperText="Incorrect entry."
+                helperText={watchInput && ! first.trim () ? "Field may not be empty." : ''}
                 variant="outlined"
               />
               <TextField
                 onChange={(e) => {handleInputChange (e, 'last')}}
                 className={classes.textInput}
-                error
+                error={watchInput && ! last.trim ()}
                 id="outlined-error-helper-text"
                 label="Last Name"
-                helperText="Incorrect entry."
+                helperText={watchInput && ! last.trim () ? "Field may not be empty." : ''}
                 variant="outlined"
               />
             </div>
@@ -119,12 +166,13 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
             <div>
               <TextField
                 onChange={(e) => {handleInputChange (e, 'quote')}}
-                error
+                error={watchInput && ! quote.trim ()}
                 fullWidth
                 id="outlined-multiline-static"
                 label="My Declaration"
                 multiline
                 rows={4}
+                helperText={watchInput && ! quote.trim () ? "Field may not be empty." : ''}
                 variant="outlined"
               />
             </div>
@@ -137,7 +185,7 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
           Add
         </Button>
 
-        <Button onClick={handleToggleModal} variant="outlined" color="primary">
+        <Button onClick={handleCloseModal} variant="outlined" color="primary">
           Cancel
         </Button>
       </DialogActions>
