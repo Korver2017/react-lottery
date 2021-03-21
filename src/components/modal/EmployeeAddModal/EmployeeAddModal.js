@@ -29,17 +29,17 @@ const useStyles = makeStyles (theme => ({
   },
 }));
 
-function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
+function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
 
   const classes = useStyles ();
 
-  const [open, setOpen] = useState (false);
+  // const [open, setOpen] = useState (false);
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
 
   // Initialize employee's data to be edited.
   // const [input, setInput] = useState ({name: {first: '', last: ''}, quote: ''});
-  const handleCloseModal = () => setOpen (false);
+  // const handleCloseModal = () => setOpen (false);
   
   let firstInput, lastInput, quoteInput;
 
@@ -55,14 +55,14 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
     handleAddEmployee ({name: {first, last}, quote, id: uuidv4 ()});
 
     // Close modal
-    handleCloseModal ();
+    handleToggleModal ();
   }
 
   return (
     <Dialog
       fullScreen={fullScreen}
       open={showModal}
-      onClose={handleTriggerModal}
+      onClose={handleToggleModal}
       aria-labelledby="responsive-dialog-title"
     >
       
@@ -121,7 +121,7 @@ function EmployeeAddModal ({showModal, handleTriggerModal, handleAddEmployee}) {
           Add
         </Button>
 
-        <Button onClick={handleCloseModal} variant="outlined" color="primary">
+        <Button onClick={handleToggleModal} variant="outlined" color="primary">
           Cancel
         </Button>
       </DialogActions>

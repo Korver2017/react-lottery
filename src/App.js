@@ -9,15 +9,15 @@ function App () {
   const [showModal, setShowModal] = useState(false);
   const [addedEmployee, setAddedEmployee] = useState({});
 
-  const handleTriggerModal = () => setShowModal (preValue => !preValue);
+  const handleToggleModal = () => setShowModal (preValue => ! preValue);
   const handleAddEmployee = (addedEmployee) => setAddedEmployee(addedEmployee);
   
   return (
     <div className="App">
 
-      <div onClick={handleTriggerModal} className="plus fas fa-plus-circle" />
+      <div onClick={handleToggleModal} className="plus fas fa-plus-circle" />
 
-      <EmployeeAddModal showModal={showModal} handleTriggerModal={handleTriggerModal} handleAddEmployee={handleAddEmployee} />
+      <EmployeeAddModal showModal={showModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
 
       <Employees addedEmployee={addedEmployee}  />
     </div>
