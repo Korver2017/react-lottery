@@ -1,14 +1,24 @@
-import React from 'react';
+/**
+ *
+ * React, Router & Components
+ *
+ */
+import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import { makeStyles } from '@material-ui/core/styles';
-
 import Employees from './employees/Employees';
 import Prizes from './Prizes';
 
-const useStyles = makeStyles({
+
+/**
+ *
+ * Styles Settings
+ *
+ */
+const useStyles = makeStyles ({
   root: {
     flexGrow: 1,
   },
@@ -19,20 +29,35 @@ const useStyles = makeStyles({
   }
 });
 const Header = () => {
-  const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
+  // Apply styles.
+  const classes = useStyles ();
 
+  // State of tab.
+  const [tab, setTab] = useState (0);
+
+
+  /**
+   *
+   * Handle Change Tab
+   *
+   */
+  const handleChangeTab = (e, newTab) => setTab (newTab);
+
+
+  /**
+   *
+   * JSX
+   *
+   */
   return (
     <Router>
       <Paper className={classes.root}>
+
         <Tabs
           className={classes.link}
-          value={value}
-          onChange={handleChange}
+          value={tab}
+          onChange={handleChangeTab}
           indicatorColor="primary"
           textColor="primary"
           centered
@@ -41,15 +66,19 @@ const Header = () => {
           <Tab label="Prizes" component={Link} to="/prizes" />
           {/* <Tab label="Item Three" /> */}
         </Tabs>
+
       </Paper>
 
       <Switch>
+
         <Route path="/employees">
           <Employees />
         </Route>
+
         <Route path="/prizes">
           <Prizes />
         </Route>
+        
       </Switch>
     </Router>
   );
