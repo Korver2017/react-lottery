@@ -1,14 +1,19 @@
-// React & Component
-import { useState } from 'react';
-import './App.css';
-import Employees from './components/employees/Employees';
-import AddEmployeeModal from './components/modal/AddEmployeeModal';
+/**
+ *
+ * Component
+ *
+ */
 import Header from './components/Header';
 
-function App () {
+
+/**
+ *
+ * App
+ *
+ */
+const App = () => {
   return (
     <div className="App">
-
       <Header />
     </div>
   );

@@ -31,7 +31,6 @@ const useStyles = makeStyles (theme => ({
     height: '100%'
   },
   sub: {
-    // marginBottom: theme.spacing (5),
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -42,6 +41,7 @@ const useStyles = makeStyles (theme => ({
     position: 'fixed',
     bottom: '50px',
     right: '50px',
+    fontSize: '40px',
   }
 }));
 
