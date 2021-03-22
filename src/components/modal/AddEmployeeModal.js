@@ -56,12 +56,15 @@ const useStyles = makeStyles (theme => ({
  * Employee Add Modal
  *
  */
-function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
+function EmployeeAddModal ({open, handleToggleModal, handleAddEmployee}) {
 
   // Apply styles.
   const classes = useStyles ();
   const theme = useTheme ();
   const fullScreen = useMediaQuery (theme.breakpoints.down ('sm'));
+  
+  // State of open modal.
+  // const [open, setOpen] = useState (false);
 
   // Initialize employee's data to be added.
   const [first, setFirst] = useState ('');
@@ -173,7 +176,7 @@ function EmployeeAddModal ({showModal, handleToggleModal, handleAddEmployee}) {
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={showModal}
+      open={open}
       onClose={handleCloseModal}
       aria-labelledby="responsive-dialog-title"
     >
