@@ -1,6 +1,7 @@
 // React & Component
 import { useState, useEffect } from 'react';
 import './Employees.css';
+import AddEmployeeModal from '../modal/AddEmployeeModal';
 import EditEmployeeModal from '../modal/EditEmployeeModal';
 import DeleteEmployeeModal from '../modal/DeleteEmployeeModal';
 
@@ -30,18 +31,25 @@ const useStyles = makeStyles (theme => ({
     height: '100%'
   },
   sub: {
-    // marginBottom: theme.spacing (5),
     fontWeight: 'bold',
     textAlign: 'center',
   },
   icons: {
     textAlign: 'right',
+  },
+  add: {
+    position: 'fixed',
+    bottom: '50px',
+    right: '50px',
+    fontSize: '40px',
   }
 }));
 
-function Employees ({addedEmployee}) {
+const Employees = () => {
 
+  const [openAddEmployeeModal, setOpenAddEmployeeModal] = useState (false);
   const [employees, setEmployees] = useState([]);
+  const [addedEmployee, setAddedEmployee] = useState({});
   const [editEmployee, setEditEmployee] = useState({});
   const [deleteEmployee, setDeleteEmployee] = useState({});
 
@@ -54,6 +62,12 @@ function Employees ({addedEmployee}) {
   const handleDeleteModalData = (employee, i) => {
     setDeleteEmployee ({...employee, order: i});
   }
+
+  const handleToggleModal = () => {
+    return setOpenAddEmployeeModal (prevState => ! prevState);
+  }
+  
+  const handleAddEmployee = (addedEmployee) => setAddedEmployee (addedEmployee);
 
   // Update selected employee's data.
   const handleEditEmployee = (editedEmployee) => {
@@ -99,21 +113,20 @@ function Employees ({addedEmployee}) {
       });
   }, []);
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   if (Object.keys(addedEmployee).length <= 0) 
-  //     return;
+    if (Object.keys(addedEmployee).length <= 0) 
+      return;
 
-  //   setEmployees ([...employees, addedEmployee]);
+    setEmployees ([...employees, addedEmployee]);
 
-  // }, [addedEmployee]);
+  }, [addedEmployee]);
 
   const classes = useStyles ();
   
   return (
     <div className="employees">
       <Grid container>
-
         {
           employees.map ((employee, i) => (
             <Grid key={employee.id} className={classes.root} item xs={3}>
@@ -138,7 +151,11 @@ function Employees ({addedEmployee}) {
             </Grid>
           ))
         }
+
+        <Box onClick={handleToggleModal} className={`${classes.add} plus fas fa-plus-circle`} />
       </Grid>
+
+      <AddEmployeeModal open={openAddEmployeeModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
 
       <EditEmployeeModal target={editEmployee} handleEditEmployee={handleEditEmployee} />
 
