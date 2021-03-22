@@ -18,8 +18,7 @@ const useStyles = makeStyles({
     }
   }
 });
-
-function NavTabs () {
+const Header = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -56,4 +55,4 @@ function NavTabs () {
   );
 }
 
-export default NavTabs;
+export default Header;
