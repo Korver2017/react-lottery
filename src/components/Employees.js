@@ -48,18 +48,24 @@ const useStyles = makeStyles (theme => ({
   card: {
     height: '100%'
   },
-  sub: {
+  subtitle: {
     fontWeight: 'bold',
     textAlign: 'center',
   },
   icons: {
     textAlign: 'right',
   },
-  add: {
+  addEmployee: {
     position: 'fixed',
     bottom: '50px',
     right: '50px',
     fontSize: '40px',
+    transition: 'transform .2s',
+    '&:hover': {
+      cursor: 'pointer',
+      transform: 'scale(1.3)',
+      color: theme.palette.primary.main,
+    }
   }
 }));
 
@@ -221,7 +227,7 @@ const Employees = () => {
                 <Divider variant="middle" />
 
                 <CardContent>
-                  <p className={classes.sub}>My Declaration to <br /> Win The Prize:</p>
+                  <p className={classes.subtitle}>My Declaration to <br /> Win The Prize:</p>
                   {employee.quote}
                 </CardContent>
 
@@ -240,7 +246,7 @@ const Employees = () => {
           ))
         }
 
-        <Box onClick={handleToggleModal} className={`${classes.add} plus fas fa-plus-circle`} />
+        <Box onClick={handleToggleModal} className={`${classes.addEmployee} plus fas fa-plus-circle`} />
       </Grid>
 
       <AddEmployeeModal open={openAddEmployeeModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
