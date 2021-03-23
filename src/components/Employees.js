@@ -43,17 +43,33 @@ import DeleteEmployeeModal from './modal/DeleteEmployeeModal';
  */
 const useStyles = makeStyles (theme => ({
   root: {
+    marginTop: theme.spacing (3),
+    marginBottom: theme.spacing (3),
+  },
+  gutter: {
     padding: theme.spacing (2),
   },
   card: {
-    height: '100%'
+    height: '100%',
+    position: 'relative',
   },
-  subtitle: {
-    fontWeight: 'bold',
-    textAlign: 'center',
+  content: {
+    '& p': {
+      fontWeight: 'bold',
+      textAlign: 'center',
+    },
+    '& div': {
+      marginBottom: '40px',
+    }
   },
-  icons: {
+  buttons: {
     textAlign: 'right',
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    '& button:hover': {
+      color: theme.palette.primary.main,
+    }
   },
   addEmployee: {
     position: 'fixed',
@@ -216,22 +232,22 @@ const Employees = () => {
    */
   return (
     <div className="employees">
-      <Grid container>
+      <Grid container className={classes.root}>
         {
           employees.map ((employee, i) => (
-            <Grid key={employee.id} className={classes.root} item xs={3}>
+            <Grid key={employee.id} className={classes.gutter} item xs={3}>
 
               <Card className={classes.card}>
 
                 <CardHeader title={employee.name.first + ' ' + employee.name.last} />
                 <Divider variant="middle" />
 
-                <CardContent>
+                <CardContent className={classes.content}>
                   <p className={classes.subtitle}>My Declaration to <br /> Win The Prize:</p>
-                  {employee.quote}
+                  <Box>{employee.quote}</Box>
                 </CardContent>
 
-                <Box className={classes.icons}>
+                <Box className={classes.buttons}>
                   <IconButton onClick={() => handleEditModalData (employee, i)}>
                     <CreateRoundedIcon />
                   </IconButton>
