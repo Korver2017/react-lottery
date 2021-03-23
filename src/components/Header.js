@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Employees from './employees/Employees';
+import Employees from './Employees';
 import Prizes from './Prizes';
 
 

@@ -31,9 +31,9 @@ import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
  * Components
  *
  */
-import AddEmployeeModal from '../modal/AddEmployeeModal';
-import EditEmployeeModal from '../modal/EditEmployeeModal';
-import DeleteEmployeeModal from '../modal/DeleteEmployeeModal';
+import AddEmployeeModal from './modal/AddEmployeeModal';
+import EditEmployeeModal from './modal/EditEmployeeModal';
+import DeleteEmployeeModal from './modal/DeleteEmployeeModal';
 
 
 /**
