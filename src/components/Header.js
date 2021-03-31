@@ -22,7 +22,7 @@ import Prizes from './Prizes';
 
 /**
  *
- * CSS Styles
+ * CSS Style
  *
  */
 import './modal/modal.css';
@@ -30,7 +30,7 @@ import './modal/modal.css';
 
 /**
  *
- * Material UI Styles
+ * Material UI Style
  *
  */
 const useStyles = makeStyles ({

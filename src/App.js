@@ -16,7 +16,7 @@ import Header from './components/Header';
 
 /**
  *
- * Styles Settings
+ * Material UI Style
  *
  */
 const useStyles = makeStyles (theme => ({
