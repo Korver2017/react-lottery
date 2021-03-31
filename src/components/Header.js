@@ -1,6 +1,6 @@
 /**
  *
- * React, Router & Components
+ * React & Router
  *
  */
 import { makeStyles } from '@material-ui/core/styles';
@@ -9,15 +9,28 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+
+
+/**
+ *
+ * Components
+ *
+ */
 import Employees from './Employees';
 import Prizes from './Prizes';
 
+
+/**
+ *
+ * CSS Styles
+ *
+ */
 import './modal/modal.css';
 
 
 /**
  *
- * Styles Settings
+ * Material UI Styles
  *
  */
 const useStyles = makeStyles ({
