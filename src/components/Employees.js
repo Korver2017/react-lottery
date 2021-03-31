@@ -38,7 +38,7 @@ import DeleteEmployeeModal from './modal/DeleteEmployeeModal';
 
 /**
  *
- * Styles Settings
+ * Material UI Style
  *
  */
 const useStyles = makeStyles (theme => ({
