@@ -88,7 +88,6 @@ const Header = () => {
         >
           <Tab label="Employees" component={Link} to="/employees" />
           <Tab label="Prizes" component={Link} to="/prizes" />
-          {/* <Tab label="Item Three" /> */}
         </Tabs>
 
       </Paper>
