@@ -44,7 +44,7 @@ import DeleteEmployeeModal from './modal/DeleteEmployeeModal';
 const useStyles = makeStyles (theme => ({
   root: {
     marginTop: theme.spacing (3),
-    marginBottom: theme.spacing (3),
+    paddingBottom: theme.spacing (3),
   },
   gutter: {
     padding: theme.spacing (2),
@@ -52,6 +52,8 @@ const useStyles = makeStyles (theme => ({
   card: {
     height: '100%',
     position: 'relative',
+    backgroundColor: '#2A3042',
+    color: '#a6b0cf',
   },
   content: {
     '& p': {
@@ -59,16 +61,19 @@ const useStyles = makeStyles (theme => ({
       textAlign: 'center',
     },
     '& div': {
-      marginBottom: '40px',
+      marginBottom: theme.spacing (7),
     }
   },
   buttons: {
     textAlign: 'right',
     position: 'absolute',
-    bottom: 0,
-    right: 0,
+    bottom: theme.spacing (1),
+    right: theme.spacing (1),
+    '& button': {
+      color: '#a6b0cf',
+    },
     '& button:hover': {
-      color: theme.palette.primary.main,
+      color: '#fff',
     }
   },
   addEmployee: {

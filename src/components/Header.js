@@ -12,6 +12,8 @@ import Tab from '@material-ui/core/Tab';
 import Employees from './Employees';
 import Prizes from './Prizes';
 
+import './modal/modal.css';
+
 
 /**
  *
@@ -21,10 +23,19 @@ import Prizes from './Prizes';
 const useStyles = makeStyles ({
   root: {
     flexGrow: 1,
+    backgroundColor: '#282E3F',
+    borderRadius: 0,
   },
   link: {
     '& a': {
       textDecoration: 'none',
+      color: '#A6B0CF',
+      '&:hover': {
+        color: '#fff',
+      },
+      '&:active': {
+        color: '#fff',
+      },
     }
   }
 });
