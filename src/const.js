@@ -9,17 +9,17 @@ const prizes = [{
   name: 'Macbook Pro',
   level: 'premium',
   count: '3',
-  intro: 'QWER',
+  intro: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio, reprehenderit.',
 }, {
   name: 'Macbook Air',
   level: 'high',
   count: '5',
-  intro: 'QWER',
+  intro:  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel beatae vitae veritatis, praesentium magnam quas.',
 }, {
   name: 'PS4',
   level: 'medium',
   count: '1',
-  intro: 'QWER',
+  intro:  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis, officiis.',
 }];
 
 export { employees, prizes };
