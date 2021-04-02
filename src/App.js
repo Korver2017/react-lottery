@@ -11,7 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
  * Component
  *
  */
-import Header from './components/Header';
+import Header from './views/Header';
 
 
 /**
