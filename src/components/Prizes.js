@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 import reactLogo from '../images/logo512.png';
+import { prizes } from '../const';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,11 +59,14 @@ const Prizes = () => {
     setExpanded (!expanded);
   };
 
+  useEffect (() => {
+    console.log ('prizes: ', prizes);
+  }, []);
+
   return (
     <div className="employees">
       <Grid container className={classes.root}>
-        {
-          <Grid className={classes.gutter} item xs={3}>
+        <Grid className={classes.gutter} item xs={3}>
             <Card className={classes.card}>
               <CardHeader
                 avatar={
@@ -126,6 +130,64 @@ const Prizes = () => {
               </Collapse>
             </Card>
           </Grid>
+        {
+          prizes.map (prize => (
+            <Grid className={classes.gutter} item xs={3}>
+              <Card className={classes.card}>
+                <CardHeader
+                  avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                      R
+                    </Avatar>
+                  }
+                  action={
+                    <IconButton aria-label="settings">
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                  title={prize.name}
+                  subheader={`Count ${prize.count}`}
+                />
+                <CardMedia
+                  className={classes.media}
+                  image={reactLogo}
+                  title="Paella dish"
+                />
+                <CardContent>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {prize.level}
+                  </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                  <IconButton aria-label="add to favorites">
+                    <FavoriteIcon />
+                  </IconButton>
+                  <IconButton aria-label="share">
+                    <ShareIcon />
+                  </IconButton>
+                  <IconButton
+                    className={clsx(classes.expand, {
+                      [classes.expandOpen]: expanded,
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                  <CardContent>
+                    {/* <Typography paragraph>Method:</Typography> */}
+                    <Typography paragraph>
+                      {prize.intro}
+                    </Typography>
+                  </CardContent>
+                </Collapse>
+              </Card>
+            </Grid>
+          ))
+          
         }
       </Grid>
     </div>
