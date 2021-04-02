@@ -22,7 +22,7 @@ const prizes = [{
   intro:  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel beatae vitae veritatis, praesentium magnam quas.',
 }, {
   id: uuidv4 (),
-  name: 'PS4',
+  name: 'PS5',
   level: 'medium',
   count: '1',
   intro:  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis, officiis.',
@@ -40,7 +40,7 @@ const prizes = [{
   intro:  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel beatae vitae veritatis, praesentium magnam quas.',
 }, {
   id: uuidv4 (),
-  name: 'PS4',
+  name: 'PS5',
   level: 'medium',
   count: '1',
   intro:  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis, officiis.',
@@ -58,7 +58,7 @@ const prizes = [{
   intro:  'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel beatae vitae veritatis, praesentium magnam quas.',
 }, {
   id: uuidv4 (),
-  name: 'PS4',
+  name: 'PS5',
   level: 'medium',
   count: '1',
   intro:  'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quis, officiis.',
