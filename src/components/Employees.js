@@ -82,10 +82,11 @@ const useStyles = makeStyles (theme => ({
     right: '50px',
     fontSize: '40px',
     transition: 'transform .2s',
+    color: '#a6b0cf',
     '&:hover': {
       cursor: 'pointer',
       transform: 'scale(1.3)',
-      color: theme.palette.primary.main,
+      color: '#fff',
     }
   }
 }));
