@@ -25,7 +25,7 @@ import Prizes from './Prizes';
  * CSS Style
  *
  */
-import './modal/modal.css';
+import './header.css';
 
 
 /**
