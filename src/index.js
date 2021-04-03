@@ -9,9 +9,15 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import 'fontsource-roboto';
 
+import { unstable_createMuiStrictModeTheme, ThemeProvider } from '@material-ui/core/styles';
+
+const theme = unstable_createMuiStrictModeTheme ();
+
 ReactDOM.render(
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
