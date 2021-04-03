@@ -69,22 +69,6 @@ function EditEmployeeModal ({target, handleEditEmployee}) {
 
   /**
    *
-   * Check input columns to confirm submit
-   *
-   */
-  const checkInput = () => {
-    
-    // Any empty input, deny submit.
-    if (! first.trim () || ! last.trim () || ! quote.trim ())
-      return setDenyUpdate (true);
-
-    else
-      return setDenyUpdate (false);
-  }
-
-
-  /**
-   *
    * Handle Close Modal
    *
    */
@@ -119,9 +103,14 @@ function EditEmployeeModal ({target, handleEditEmployee}) {
    *
    */
   useEffect (() => {
+    
+    // Any empty input, deny submit.
+    if (! first.trim () || ! last.trim () || ! quote.trim ())
+      return setDenyUpdate (true);
 
-    // When columns changed, check input.
-    checkInput ();
+    else
+      return setDenyUpdate (false);
+
   }, [first, last, quote]);
 
 
@@ -143,6 +132,9 @@ function EditEmployeeModal ({target, handleEditEmployee}) {
 
       case 'quote':
         return setQuote (e.target.value);
+
+      default:
+        return;
     }
   }
   
