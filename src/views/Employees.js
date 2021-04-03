@@ -226,7 +226,7 @@ const Employees = () => {
     if (Object.keys (addEmployee).length <= 0) 
       return;
 
-    setEmployees ([...employees, addEmployee]);
+    setEmployees (prevEmployees => [...prevEmployees, addEmployee]);
 
   }, [addEmployee]);
   
