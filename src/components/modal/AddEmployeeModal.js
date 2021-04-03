@@ -80,10 +80,10 @@ function EmployeeAddModal ({open, handleToggleModal, handleAddEmployee}) {
 
   /**
    *
-   * Check input columns to confirm submit
+   * Check Input Columns
    *
    */
-  const checkInput = () => {
+  useEffect (() => {
     
     // Any empty input, deny submit.
     if (! first.trim () || ! last.trim () || ! quote.trim ())
@@ -91,18 +91,7 @@ function EmployeeAddModal ({open, handleToggleModal, handleAddEmployee}) {
 
     else
       return setDenyUpdate (false);
-  }
-
-
-  /**
-   *
-   * Check Input Columns
-   *
-   */
-  useEffect (() => {
-
-    // When columns changed, check input.
-    checkInput ();
+  
   }, [first, last, quote]);
 
 
