@@ -24,6 +24,7 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import CreateRoundedIcon from '@material-ui/icons/CreateRounded';
 import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 
 /**
@@ -268,7 +269,8 @@ const Employees = () => {
           ))
         }
 
-        <Box onClick={handleToggleModal} className={`${classes.addEmployee} plus fas fa-plus-circle`} />
+        <AddCircleIcon onClick={handleToggleModal} className={`${classes.addEmployee} />
+        // <Box  plus fas fa-plus-circle`} />
       </Grid>
 
       <AddEmployeeModal open={openAddEmployeeModal} handleToggleModal={handleToggleModal} handleAddEmployee={handleAddEmployee} />
