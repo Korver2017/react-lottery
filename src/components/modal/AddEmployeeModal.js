@@ -153,6 +153,9 @@ function EmployeeAddModal ({open, handleToggleModal, handleAddEmployee}) {
 
       case 'quote':
         return setQuote (e.target.value);
+
+      default:
+        return;
     }
   }
 
