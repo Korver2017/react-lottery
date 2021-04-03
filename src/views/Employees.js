@@ -52,8 +52,8 @@ const useStyles = makeStyles (theme => ({
   card: {
     height: '100%',
     position: 'relative',
-    backgroundColor: '#2A3042',
-    color: '#a6b0cf',
+    backgroundColor: theme.palette.simpleDark.main,
+    color: theme.palette.simpleDark.light,
   },
   content: {
     '& p': {
@@ -70,7 +70,7 @@ const useStyles = makeStyles (theme => ({
     bottom: theme.spacing (1),
     right: theme.spacing (1),
     '& button': {
-      color: '#a6b0cf',
+      color: theme.palette.simpleDark.light,
     },
     '& button:hover': {
       color: '#fff',
@@ -82,7 +82,7 @@ const useStyles = makeStyles (theme => ({
     right: '50px',
     fontSize: '40px',
     transition: 'transform .2s',
-    color: '#a6b0cf',
+    color: theme.palette.simpleDark.light,
     '&:hover': {
       cursor: 'pointer',
       transform: 'scale(1.3)',

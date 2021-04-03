@@ -23,7 +23,15 @@ import 'fontsource-roboto';
 import { unstable_createMuiStrictModeTheme, ThemeProvider } from '@material-ui/core/styles';
 
 // Apply theme.
-const theme = unstable_createMuiStrictModeTheme ();
+const theme = unstable_createMuiStrictModeTheme ({
+  palette: {
+    simpleDark: {
+      light: '#a6b0cf',
+      main: '#2A3042',
+      dark: '#222736',
+    },
+  }
+});
 
 ReactDOM.render (
   <React.StrictMode>
