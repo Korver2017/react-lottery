@@ -22,14 +22,6 @@ import Prizes from './Prizes';
 
 /**
  *
- * CSS Style
- *
- */
-import './header.css';
-
-
-/**
- *
  * Material UI Style
  *
  */
@@ -45,14 +37,8 @@ const useStyles = makeStyles (theme => ({
       color: theme.palette.simpleDark.light,
       '&:hover': {
         color: '#fff',
-      }
-    }
-    // '& a': {
-    //   color: theme.palette.simpleDark.light,
-    //   '&:hover': {
-    //     color: '#fff',
-    //   },
-    // },
+      },
+    },
   },
   indicator: {
     backgroundColor: 'white',
@@ -60,16 +46,16 @@ const useStyles = makeStyles (theme => ({
   selectedTab: {
     '& span': {
       color: 'white'
-    }
-    
-  }
-  // tab: {
-
-  // },
-  // selectedTab: {
-  //   color: 'blue',
-  // }
+    },
+  },
 }));
+
+
+/**
+ *
+ * Header
+ *
+ */
 const Header = () => {
 
   // Apply styles.
