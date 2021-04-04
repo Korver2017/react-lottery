@@ -33,25 +33,41 @@ import './header.css';
  * Material UI Style
  *
  */
-const useStyles = makeStyles ({
+const useStyles = makeStyles (theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: '#282E3F',
+    backgroundColor: theme.palette.simpleDark.main,
     borderRadius: 0,
   },
   link: {
-    '& a': {
-      textDecoration: 'none',
-      color: '#A6B0CF',
+    textDecoration: 'none',
+    '& .tab': {
+      color: theme.palette.simpleDark.light,
       '&:hover': {
         color: '#fff',
-      },
-      '&:active': {
-        color: '#fff',
-      },
+      }
     }
+    // '& a': {
+    //   color: theme.palette.simpleDark.light,
+    //   '&:hover': {
+    //     color: '#fff',
+    //   },
+    // },
+  },
+  indicator: {
+    backgroundColor: 'white',
+  },
+  selectedTab: {
+    '&.tab': {color: 'white'}
+    
   }
-});
+  // tab: {
+
+  // },
+  // selectedTab: {
+  //   color: 'blue',
+  // }
+}));
 const Header = () => {
 
   // Apply styles.
@@ -82,12 +98,12 @@ const Header = () => {
           className={classes.link}
           value={tab}
           onChange={handleChangeTab}
-          indicatorColor="primary"
-          textColor="primary"
+          classes={{indicator: classes.indicator}}
           centered
         >
-          <Tab label="Employees" component={Link} to="/employees" />
-          <Tab label="Prizes" component={Link} to="/prizes" />
+          {/* <Tab classes={{selected: classes.selectedTab}} label="Employees" component={Link} to="/employees" /> */}
+          <Tab classes={{selected: classes.selectedTab}} className="tab" label="Employees" component={Link} to="/employees" />
+          <Tab classes={{selected: classes.selectedTab}} className="tab" label="Prizes" component={Link} to="/prizes" />
         </Tabs>
 
       </Paper>
