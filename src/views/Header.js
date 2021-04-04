@@ -41,7 +41,7 @@ const useStyles = makeStyles (theme => ({
   },
   link: {
     textDecoration: 'none',
-    '& .tab': {
+    '& a': {
       color: theme.palette.simpleDark.light,
       '&:hover': {
         color: '#fff',
@@ -58,7 +58,9 @@ const useStyles = makeStyles (theme => ({
     backgroundColor: 'white',
   },
   selectedTab: {
-    '&.tab': {color: 'white'}
+    '& span': {
+      color: 'white'
+    }
     
   }
   // tab: {
@@ -102,8 +104,8 @@ const Header = () => {
           centered
         >
           {/* <Tab classes={{selected: classes.selectedTab}} label="Employees" component={Link} to="/employees" /> */}
-          <Tab classes={{selected: classes.selectedTab}} className="tab" label="Employees" component={Link} to="/employees" />
-          <Tab classes={{selected: classes.selectedTab}} className="tab" label="Prizes" component={Link} to="/prizes" />
+          <Tab classes={{selected: classes.selectedTab}} label="Employees" component={Link} to="/employees" />
+          <Tab classes={{selected: classes.selectedTab}} label="Prizes" component={Link} to="/prizes" />
         </Tabs>
 
       </Paper>
